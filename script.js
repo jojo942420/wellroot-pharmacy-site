@@ -16,3 +16,12 @@ navigation.addEventListener('click', (event) => {
 
 document.querySelector('#year').textContent = new Date().getFullYear();
 
+const reel = document.querySelector('.product-reel');
+const reelToggle = document.querySelector('.reel-toggle');
+
+reelToggle.addEventListener('click', () => {
+  const paused = reel.classList.toggle('is-paused');
+  reelToggle.setAttribute('aria-pressed', String(paused));
+  reelToggle.textContent = paused ? 'Play product reel' : 'Pause product reel';
+});
+
