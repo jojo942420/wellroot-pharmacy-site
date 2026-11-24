@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#10372f">
+  <meta name="theme-color" content="#e4ecdf">
   <meta name="description" content="Dek450 Pharmacy Limited in Lashibi, Tema — everyday pharmacy care and wellness essentials.">
   <title>Dek450 Pharmacy Limited — Lashibi, Tema</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -126,6 +126,42 @@ body.simple-home,.simple-home .site-header,.product-section{background:#faf9f4}
 @media(max-width:760px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.product-grid .product-image-wrap{height:220px}.assistant-section{grid-template-columns:1fr;gap:24px;padding-top:55px;padding-bottom:58px}.assistant-intro h2{font-size:45px}}
 @media(max-width:600px){.product-grid{grid-template-columns:1fr;gap:14px}.product-grid .product-image-wrap{height:255px}.product-grid .product-tile-copy{min-height:125px}.about-section{background:linear-gradient(110deg,#eef1e8,#f7f6ef)}.supply-note{margin-top:14px}.chat-messages{height:180px}.assistant-intro h2{font-size:40px}.brand-hero{background:radial-gradient(ellipse at 50% 42%,#e8eee2 0,#dfe8dc 53%,#d6e2d8 100%)}}
 
+  /* Refined Dek450 typography and soft highlight glow */
+:root{--brand-ink:#365548;--brand-moss:#718a71;--brand-glow:#c4d5ad}
+body.simple-home{font-family:"DM Sans",var(--sans),sans-serif;color:var(--brand-ink)}
+.simple-home .brand{font-family:"Manrope",var(--display),sans-serif;font-weight:800;letter-spacing:-1.1px;color:var(--brand-ink)}
+.simple-home .brand-sub{font-family:"DM Sans",var(--sans),sans-serif;font-weight:700;color:#718272}
+.simple-home .brand-mark{box-shadow:inset 0 1px 4px #fff,0 0 0 5px #eef2e9,0 5px 15px #7f9b7625}
+.brand-hero{background:radial-gradient(ellipse at 50% 42%,#f0f3e9 0,#e4ecdf 48%,#dce7dd 100%)}
+.brand-hero:before{opacity:.16;background-image:linear-gradient(#81947b18 1px,transparent 1px),linear-gradient(90deg,#81947b18 1px,transparent 1px)}
+.hero-logo{position:relative;background:linear-gradient(145deg,#fffef8,#e2ebd2 64%,#cbd9bb);box-shadow:inset 0 2px 1px #fff,0 8px 0 #bccbb4,0 0 0 8px #edf2e7,0 14px 32px #718c692d}
+.hero-logo:after{content:"";position:absolute;inset:-12px;border-radius:inherit;border:1px solid #8da98455;box-shadow:0 0 22px #b2c89a30;pointer-events:none}
+.brand-3d{margin-top:30px}
+.brand-3d span{font-family:"Manrope",var(--display),sans-serif;font-weight:900;font-size:clamp(100px,15vw,176px);letter-spacing:-.09em;padding-right:.09em;background:linear-gradient(180deg,#fffef8 0%,#dbe7cb 34%,#8ba17e 72%,#eef2e5 100%);filter:drop-shadow(0 2px 0 #8b9f83) drop-shadow(0 5px 0 #738b70) drop-shadow(0 9px 0 #526d5e) drop-shadow(0 15px 15px #46634b38) drop-shadow(0 0 24px #aabd8c45);transform:perspective(900px) rotateX(2deg)}
+.brand-3d small{margin-top:18px;font-family:"DM Sans",var(--sans),sans-serif;font-size:clamp(14px,1.65vw,19px);font-weight:800;letter-spacing:.42em;padding-left:.42em;color:#526a58;text-shadow:0 2px 0 #fff,0 5px 12px #8aa27b30}
+.brand-3d:after{content:"";display:block;width:72px;height:3px;margin-top:16px;border-radius:99px;background:linear-gradient(90deg,#b4c79f,#e0d9a9,#b4c79f);box-shadow:0 0 12px #aabd8c80}
+.hero-kicker span{background:#a2b78d;box-shadow:0 0 12px #9ab17b9c}
+.hero-button,.map-button{background:linear-gradient(135deg,#dce8c7,#c3d6a6);box-shadow:0 4px 0 #aabc90,0 0 0 5px #eef2e7,0 9px 24px #8ba47740;transition:transform .22s ease,box-shadow .22s ease,filter .22s ease}
+.hero-button:hover,.map-button:hover{filter:brightness(1.02);box-shadow:0 6px 0 #aabc90,0 0 0 6px #eef2e7,0 12px 30px #8ba47762}
+.product-grid .product-tile{border-color:#e0e6dc;transition:transform .25s ease,box-shadow .25s ease,border-color .25s ease}
+.product-grid .product-tile:hover{border-color:#c4d4b6;box-shadow:0 0 0 4px #eef3e8,0 18px 38px #8ba47735}
+.product-grid .product-tile-copy>span{color:#778e70}
+.product-grid .product-image-wrap{background:linear-gradient(145deg,#fbfbf6,#edf2e9)}
+.product-grid .product-tile-copy h3{font-family:"Manrope",var(--display),sans-serif;font-weight:750}
+.assistant-section{background:linear-gradient(120deg,#f4f5ee,#edf2e9 58%,#f7f6ef)}
+.chat-card{box-shadow:0 16px 42px #435b4814,0 0 0 1px #f4f6f0}
+.chat-head{background:#eff3e9}
+.chat-avatar{box-shadow:0 0 0 5px #f8faf5,0 0 18px #9bb68b56}
+.chat-form:focus-within{border-color:#b5c9a1;box-shadow:0 0 0 4px #eaf0e2,0 0 18px #aabd8c3d}
+.chat-form button{background:linear-gradient(140deg,#cfddb7,#aec28f);box-shadow:0 0 14px #aabd8c57;transition:box-shadow .2s ease,transform .2s ease}
+.chat-form button:hover{transform:translateY(-1px);box-shadow:0 0 20px #9db78395}
+.supply-note{border-left-color:#b5c79f;box-shadow:0 0 0 1px #edf2e8,0 7px 20px #81957212}
+.simple-footer{background:linear-gradient(110deg,#405b4d,#526e5b)}
+.simple-footer .brand-mark{box-shadow:0 0 0 4px #526e5b,0 0 18px #c4d5ad55}
+@media(max-width:760px){.brand-3d span{font-size:clamp(88px,17vw,132px)}}
+@media(max-width:600px){.brand-3d span{font-size:clamp(72px,19vw,104px)}.brand-3d small{font-size:12px;letter-spacing:.34em;padding-left:.34em}.hero-logo{box-shadow:inset 0 2px 1px #fff,0 7px 0 #bccbb4,0 0 0 6px #edf2e7,0 12px 27px #718c692d}}
+@media(prefers-reduced-motion:reduce){.hero-button,.map-button,.product-grid .product-tile,.chat-form button{transition:none}}
+
   </style>
 </head>
 <body class="simple-home">
@@ -140,7 +176,7 @@ body.simple-home,.simple-home .site-header,.product-section{background:#faf9f4}
       <div class="hero-inner">
         <div class="hero-logo"><svg viewBox="0 0 48 48" role="img" aria-label="Dek450 pharmacy logo"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="2"/><path d="M24 11v26M11 24h26" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M12.8 13.2c6.1-2.3 10.8 2.4 10.8 10.8-8.4 0-13.1-4.7-10.8-10.8Zm22.4 0c-6.1-2.3-10.8 2.4-10.8 10.8 8.4 0 13.1-4.7 10.8-10.8Z" fill="currentColor" stroke="none"/></svg></div>
         <div class="hero-kicker"><span></span> Your neighborhood pharmacy · Lashibi, Tema</div>
-        <h1 class="brand-3d"><span>Dek450</span><small>PHARMACY</small></h1>
+        <h1 class="brand-3d"><span>Dek450</span><small>PHARMACY LIMITED</small></h1>
         <p class="hero-summary">Everyday pharmacy care, trusted essentials, and a friendly team close to home.</p>
         <a class="hero-button" href="#products">View products <span>↓</span></a>
       </div>
