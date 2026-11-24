@@ -20,37 +20,149 @@ const chatForm = document.querySelector('#chatForm');
 const chatInput = document.querySelector('#chatInput');
 const chatMessages = document.querySelector('#chatMessages');
 const chatPrompts = document.querySelector('.chat-prompts');
+const sendButton = chatForm.querySelector('button[type="submit"]');
 
-const dek450Answers = [
-  { terms: ['where', 'location', 'address', 'directions', 'find', 'situated', 'map'], answer: 'We are in Klagon, Lashibi, Tema, near Sakumono Police Station at NDC Junction, Cowpea Street, CB69. Use the “Get directions” link on this page for a map.' },
-  { terms: ['phone', 'call', 'contact', 'number', 'telephone'], answer: 'You can call Dek450 Pharmacy on 053 380 5134, 050 211 3175, or 024 844 2602.' },
-  { terms: ['open', 'hours', 'time', 'closing'], answer: 'I don’t have confirmed opening hours. Please call 053 380 5134 or 050 211 3175 before visiting.' },
-  { terms: ['stock', 'available', 'availability', 'price', 'cost', 'buy', 'sell'], answer: 'Stock and prices can change. Please call our team on 053 380 5134 or 050 211 3175 to check today’s availability and price.' },
-  { terms: ['serum', 'facial', 'alpha', 'arbutin', 'niacinamide'], answer: 'The gallery includes TWG facial serum options, including 5-in-1 and Alpha-Arbutin serums. Please contact the pharmacy to confirm current stock and price.' },
-  { terms: ['lotion', 'body', 'rice', 'pulp'], answer: 'The gallery shows TWG body lotions, including rice pulp and niacinamide options in 500 ml bottles. Contact us to check what is currently in stock.' },
-  { terms: ['vitamin', 'd3', 'omega', 'fish', 'oil'], answer: 'Vitamin D3 and Omega-3 supplement options are shown in the gallery. Ask our pharmacist for guidance and call us to confirm availability.' },
-  { terms: ['probiotic', 'gummy', 'gummies', 'women'], answer: 'The gallery includes probiotic capsules and women’s probiotic gummies. Please check the label and contact our pharmacist with product questions.' },
-  { terms: ['magnesium'], answer: 'A magnesium complex supplement is shown in the gallery. For ingredients, suitability, and current stock, please speak with our pharmacy team.' },
-  { terms: ['primrose', 'skin radiance', 'collagen', 'biotin', 'shilajit', 'supplement', 'product', 'products', 'carry'], answer: 'Our gallery features skincare, body care, vitamins, and wellness supplements, including evening primrose oil, Skin Radiance, collagen/biotin, and shilajit gummies. Product examples may change; call us to confirm stock.' },
-  { terms: ['dose', 'dosage', 'take', 'treatment', 'symptom', 'diagnose', 'pregnant', 'side effect', 'prescription', 'medicine for'], answer: 'I can share general product information, but I can’t recommend a medicine or dose. Please speak with our pharmacist or your healthcare professional for personal medical advice.' }
+const dek450Knowledge = [
+  {
+    intent: 'safety',
+    terms: ['dose', 'dosage', 'how many', 'how much should', 'take for', 'treatment', 'treat', 'symptom', 'diagnose', 'pregnant', 'pregnancy', 'side effect', 'safe for me', 'interaction', 'medicine for', 'antibiotic'],
+    answer: 'I can help with store and product information, but I can’t recommend a medicine, dose, or treatment. Please speak with our pharmacist or your healthcare professional for personal advice.'
+  },
+  {
+    intent: 'location',
+    terms: ['where', 'location', 'address', 'directions', 'find you', 'situated', 'map', 'near'],
+    answer: 'Dek450 Pharmacy is in Klagon, Lashibi, Tema, near Sakumono Police Station at NDC Junction, Cowpea Street, CB69. Use “Open map” in the Contact section for directions.'
+  },
+  {
+    intent: 'contact',
+    terms: ['phone', 'call', 'contact', 'number', 'telephone', 'reach you'],
+    answer: 'Call our team on 053 380 5134, 050 211 3175, or 024 844 2602.'
+  },
+  {
+    intent: 'hours',
+    terms: ['open', 'opening hours', 'hours', 'closing', 'when are you'],
+    answer: 'I don’t have confirmed opening hours. Please call 053 380 5134 or 050 211 3175 before visiting.'
+  },
+  {
+    intent: 'medical-supplies',
+    terms: ['medical supply', 'medical supplies', 'bulk order', 'bulk supply', 'clinic supply', 'supply business', 'care provider', 'wholesale'],
+    answer: 'Dek450 Medical Supplies serves clinics, pharmacies, and care providers with product sourcing and bulk supply inquiries. Use the “Discuss a supply order” link at the bottom of the page to call our team.'
+  },
+  {
+    intent: 'availability',
+    terms: ['stock', 'available', 'availability', 'in stock', 'price', 'cost', 'buy', 'sell', 'do you have', 'how much is'],
+    answer: 'Stock and prices can change. Call our team on 053 380 5134 or 050 211 3175 to confirm today’s availability and price.'
+  },
+  {
+    intent: 'serum',
+    terms: ['serum', 'facial', 'alpha arbutin', 'arbutin', 'niacinamide'],
+    answer: 'The gallery includes TWG facial serums, including 5-in-1 and Alpha-Arbutin options. Contact us to confirm current stock and price.'
+  },
+  {
+    intent: 'body-care',
+    terms: ['lotion', 'body care', 'rice pulp'],
+    answer: 'The gallery shows TWG body lotions, including rice pulp and niacinamide options in 500 ml bottles. Contact us to check what is currently in stock.'
+  },
+  {
+    intent: 'vitamins',
+    terms: ['vitamin', 'd3', 'omega', 'fish oil'],
+    answer: 'Vitamin D3 and Omega-3 supplement options are shown in the gallery. Ask our pharmacist for guidance, and call us to confirm availability.'
+  },
+  {
+    intent: 'probiotics',
+    terms: ['probiotic', 'gummy', 'gummies', 'women'],
+    answer: 'The gallery includes probiotic capsules and women’s probiotic gummies. Please read the product label and contact our pharmacist with product questions.'
+  },
+  {
+    intent: 'magnesium',
+    terms: ['magnesium'],
+    answer: 'A magnesium complex supplement is shown in the gallery. For ingredients, suitability, and current stock, speak with our pharmacy team.'
+  },
+  {
+    intent: 'other-products',
+    terms: ['primrose', 'skin radiance', 'collagen', 'biotin', 'shilajit', 'supplement', 'product', 'products', 'carry', 'browse'],
+    answer: 'Our gallery features skincare, body care, vitamins, and wellness supplements, including evening primrose oil, Skin Radiance, collagen/biotin, and shilajit gummies. Product examples may change; call us to confirm stock.'
+  }
 ];
 
+function normalizeQuestion(value) {
+  return value.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+}
+
 function getDek450Answer(question) {
-  const words = question.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').split(/\s+/).filter(Boolean);
-  let best = { score: 0, answer: '' };
-  for (const item of dek450Answers) {
-    const score = item.terms.reduce((total, term) => total + (words.includes(term) || question.toLowerCase().includes(term) ? 1 : 0), 0);
-    if (score > best.score) best = { score, answer: item.answer };
+  const normalized = normalizeQuestion(question);
+  const words = new Set(normalized.split(' '));
+  let bestMatch = null;
+  let bestScore = 0;
+
+  for (const item of dek450Knowledge) {
+    const score = item.terms.reduce((total, term) => {
+      const normalizedTerm = normalizeQuestion(term);
+      return total + (normalized.includes(normalizedTerm) || (!normalizedTerm.includes(' ') && words.has(normalizedTerm)) ? 1 : 0);
+    }, 0);
+    if (score > bestScore) {
+      bestMatch = item;
+      bestScore = score;
+    }
   }
-  return best.answer || 'I can help with the products shown here, availability, and our Lashibi location. Try asking about a product name or call 053 380 5134 for more help.';
+
+  if (bestMatch) return bestMatch.answer;
+  return 'I can help with products in our gallery, checking today’s availability, our Lashibi location, or medical-supply inquiries. Try asking about one of those, or call 053 380 5134 for help.';
 }
 
 function addChatMessage(text, kind) {
-  const message = document.createElement('div');
-  message.className = 'chat-bubble ' + (kind === 'user' ? 'user-bubble' : 'assistant-bubble');
-  message.textContent = text;
-  chatMessages.appendChild(message);
+  const row = document.createElement('div');
+  row.className = 'message-row ' + (kind === 'user' ? 'user-row' : 'assistant-row');
+
+  const content = document.createElement('div');
+  content.className = 'message-content';
+
+  const author = document.createElement('span');
+  author.className = 'message-author';
+  author.textContent = kind === 'user' ? 'YOU' : 'DEK450 ASSISTANT';
+
+  const bubble = document.createElement('div');
+  bubble.className = 'chat-bubble ' + (kind === 'user' ? 'user-bubble' : 'assistant-bubble');
+  bubble.textContent = text;
+
+  if (kind !== 'user') {
+    const avatar = document.createElement('span');
+    avatar.className = 'message-avatar';
+    avatar.setAttribute('aria-hidden', 'true');
+    avatar.textContent = '✦';
+    row.append(avatar);
+  }
+
+  content.append(author, bubble);
+  row.append(content);
+  chatMessages.appendChild(row);
   chatMessages.scrollTop = chatMessages.scrollHeight;
+}
+
+function showTyping() {
+  const row = document.createElement('div');
+  row.className = 'message-row assistant-row typing-row';
+  row.setAttribute('aria-label', 'Dek450 Assistant is preparing a reply');
+
+  const avatar = document.createElement('span');
+  avatar.className = 'message-avatar';
+  avatar.setAttribute('aria-hidden', 'true');
+  avatar.textContent = '✦';
+
+  const content = document.createElement('div');
+  content.className = 'message-content';
+  const author = document.createElement('span');
+  author.className = 'message-author';
+  author.textContent = 'DEK450 ASSISTANT';
+  const bubble = document.createElement('div');
+  bubble.className = 'chat-bubble assistant-bubble typing-bubble';
+  bubble.setAttribute('aria-hidden', 'true');
+  bubble.innerHTML = '<i></i><i></i><i></i>';
+  content.append(author, bubble);
+  row.append(avatar, content);
+  chatMessages.appendChild(row);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
+  return row;
 }
 
 function askDek450(question) {
@@ -58,7 +170,15 @@ function askDek450(question) {
   if (!cleanQuestion) return;
   addChatMessage(cleanQuestion, 'user');
   chatInput.value = '';
-  window.setTimeout(() => addChatMessage(getDek450Answer(cleanQuestion), 'assistant'), 250);
+  sendButton.disabled = true;
+  const typing = showTyping();
+
+  window.setTimeout(() => {
+    typing.remove();
+    addChatMessage(getDek450Answer(cleanQuestion), 'assistant');
+    sendButton.disabled = false;
+    chatInput.focus();
+  }, 420);
 }
 
 chatForm.addEventListener('submit', (event) => {
