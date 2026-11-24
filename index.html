@@ -70,6 +70,62 @@ body.simple-home{background:#f5f5ef}
 @media(max-width:760px){.simple-home .site-header{height:72px}.simple-home .nav-links{gap:18px}.brand-hero{min-height:520px}.hero-inner{padding-top:46px}.hero-foot{font-size:7px}.product-heading{align-items:flex-start;flex-direction:column;gap:15px}.product-heading h2{font-size:44px}.about-section{grid-template-columns:60px 1fr;gap:19px;padding:50px 24px}.about-logo{width:58px;height:58px;border-radius:18px}.about-logo svg{width:39px;height:39px}.contact-section{grid-template-columns:1fr;gap:26px;padding-top:56px;padding-bottom:58px}.contact-card{width:100%;padding:26px}.simple-footer{flex-wrap:wrap;padding:22px 24px}.simple-footer p{order:3;width:100%}}
 @media(max-width:600px){.simple-home .nav-links{gap:14px;font-size:10px}.simple-home .nav-cta{padding:10px 13px}.simple-home .brand{font-size:19px}.simple-home .brand-mark{width:37px;height:37px}.brand-hero{min-height:492px}.hero-inner{padding:42px 18px 62px}.hero-logo{width:60px;height:60px;border-radius:20px;margin-bottom:20px}.hero-logo svg{width:45px;height:45px}.brand-3d{margin-top:25px}.brand-3d span{font-size:clamp(57px,15vw,82px)}.brand-3d small{font-size:13px;letter-spacing:.38em;padding-left:.38em}.hero-summary{font-size:12px;max-width:325px}.hero-foot{left:20px;right:20px;font-size:6px;letter-spacing:1px}.product-section{padding-top:52px;padding-bottom:46px}.product-heading h2{font-size:38px}.product-section .product-reel{margin-left:-20px;margin-right:-20px}.product-section .product-reel-head{padding-left:20px;padding-right:20px}.product-tile{min-height:390px}.product-image-wrap{height:250px}.about-section h2{font-size:32px;letter-spacing:-1.6px}.about-section h2 em,.contact-intro h2 em{letter-spacing:-1px}.contact-intro h2{font-size:45px}.simple-footer{gap:14px}.simple-footer .brand{font-size:18px}}
 
+  
+/* Pale palette, three-row product gallery, assistant, and supply company note */
+:root{--forest:#405d50;--sage:#e9eee1;--cream:#faf9f4;--line:#e7e8df}
+body.simple-home,.simple-home .site-header,.product-section{background:#faf9f4}
+.simple-home .brand{color:#405d50}
+.simple-home .brand-mark{background:#edf1e8;color:#607665;box-shadow:inset 0 1px 4px #fff,0 3px 9px #405d5012}
+.brand-hero{background:radial-gradient(ellipse at 50% 42%,#e8eee2 0,#dfe8dc 53%,#d6e2d8 100%);color:#344f43}
+.brand-hero:before{opacity:.12;background-image:linear-gradient(#6d866b1b 1px,transparent 1px),linear-gradient(90deg,#6d866b1b 1px,transparent 1px)}
+.brand-hero:after{border-color:#738b6c2a;box-shadow:0 0 0 34px #738b6c0c,0 0 0 82px #738b6c08}
+.orb-one{background:radial-gradient(circle at 60% 70%,#f7faeb9c,transparent 70%)}
+.orb-two{background:radial-gradient(circle at 40% 30%,#aabe9d52,transparent 70%)}
+.hero-logo{color:#47604e;background:linear-gradient(145deg,#fffef6,#e0e9ce 65%,#c7d5b3);box-shadow:inset 0 2px 1px #fff9,0 8px 0 #aebba5,0 15px 30px #49645327}
+.hero-kicker,.hero-foot{color:#627764}
+.hero-kicker span{background:#92a875;box-shadow:0 0 10px #92a875}
+.brand-3d span{background:linear-gradient(180deg,#fffef8 2%,#c3d2ae 38%,#809875 74%,#eef2e3 100%);filter:drop-shadow(0 2px 0 #829678) drop-shadow(0 5px 0 #657d68) drop-shadow(0 8px 0 #465f51) drop-shadow(0 13px 12px #49645330)}
+.brand-3d small{color:#566c5a;text-shadow:0 1px 0 #fff,0 5px 12px #465f5128}
+.hero-summary{color:#5b6d60}
+.hero-button,.map-button{background:#cbd9b1;color:#354d3f;box-shadow:0 4px 0 #a8b996,0 10px 20px #64785b22}
+.hero-button:hover,.map-button:hover{box-shadow:0 6px 0 #a8b996,0 13px 22px #64785b22}
+.hero-button:hover{transform:translateY(-2px)}
+.product-heading h2,.about-section h2,.contact-intro h2,.assistant-intro h2{color:#405d50}
+.product-heading h2 em,.about-section h2 em,.contact-intro h2 em,.assistant-intro h2 em{color:#8c9a79}
+.product-section .section-kicker,.contact-section .section-kicker,.about-section .section-kicker,.assistant-section .section-kicker{color:#74866c}
+.product-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.product-grid .product-tile{width:auto;min-height:0;animation:none}
+.product-grid .product-image-wrap{height:270px}
+.product-grid .product-tile-copy{min-height:140px}
+.gallery-note{margin-top:22px}
+.about-section{background:linear-gradient(110deg,#eef1e8,#f7f6ef 62%,#e9efe5)}
+.about-logo{background:#e5ecdf;color:#637b66;box-shadow:inset 0 2px 4px #fff,0 7px 0 #c5d2bf,0 12px 20px #183d2a16}
+.supply-note{display:grid;gap:5px;max-width:560px;margin-top:18px;padding:13px 16px;border-left:3px solid #a1b18c;background:#f6f7f1;color:#596a5d}
+.supply-note strong{font-size:11px;color:#4a6251}.supply-note span{font-size:11px;line-height:1.7}
+.assistant-section{display:grid;grid-template-columns:.85fr 1.15fr;gap:50px;align-items:center;padding-top:74px;padding-bottom:78px;background:#f5f6ef}
+.assistant-intro h2{font:600 clamp(42px,5vw,62px)/1.04 var(--display);letter-spacing:-3px;margin:13px 0}
+.assistant-intro p{font-size:12px;line-height:1.9;color:#69756b;max-width:350px}
+.chat-card{background:#fff;border:1px solid #e1e5d9;border-radius:17px;overflow:hidden;box-shadow:0 16px 42px #435b4814}
+.chat-head{display:flex;align-items:center;gap:12px;padding:16px 18px;background:#eef2e8;border-bottom:1px solid #e4e8df}
+.chat-avatar{width:35px;height:35px;border-radius:50%;display:grid;place-items:center;background:#dce7d2;color:#58725d;font-size:19px}
+.chat-head strong,.chat-head small{display:block}.chat-head strong{font-size:12px;color:#40594a}.chat-head small{font-size:9px;color:#778276;margin-top:3px}
+.chat-status{margin-left:auto;font-size:7px;letter-spacing:1px;color:#70836e}
+.chat-messages{height:190px;overflow-y:auto;padding:17px;display:flex;flex-direction:column;align-items:flex-start;gap:10px}
+.chat-bubble{max-width:88%;padding:11px 13px;border-radius:14px;font-size:11px;line-height:1.65}
+.assistant-bubble{background:#eff2e9;color:#536457;border-top-left-radius:4px}
+.user-bubble{align-self:flex-end;background:#dce6cf;color:#3d5646;border-top-right-radius:4px}
+.chat-prompts{display:flex;flex-wrap:wrap;gap:7px;padding:0 16px 13px}
+.chat-prompts button{border:1px solid #dbe2d4;border-radius:99px;background:white;color:#667763;padding:7px 10px;font:500 9px var(--sans);cursor:pointer}
+.chat-prompts button:hover{background:#eff3e9}
+.chat-form{display:flex;gap:8px;margin:0 14px;padding:8px 8px 8px 13px;border:1px solid #dfe5dc;border-radius:99px}
+.chat-form input{flex:1;min-width:0;border:0;outline:0;background:transparent;color:#43574a;font:11px var(--sans)}
+.chat-form button{width:31px;height:31px;border:0;border-radius:50%;background:#bcca9c;color:#364d3f;font-size:18px;cursor:pointer}
+.chat-disclaimer{margin:10px 18px 15px;font-size:8px;color:#879084}
+.visually-hidden{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.simple-footer{background:#405b4d;color:#f3f4eb}
+@media(max-width:760px){.product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.product-grid .product-image-wrap{height:220px}.assistant-section{grid-template-columns:1fr;gap:24px;padding-top:55px;padding-bottom:58px}.assistant-intro h2{font-size:45px}}
+@media(max-width:600px){.product-grid{grid-template-columns:1fr;gap:14px}.product-grid .product-image-wrap{height:255px}.product-grid .product-tile-copy{min-height:125px}.about-section{background:linear-gradient(110deg,#eef1e8,#f7f6ef)}.supply-note{margin-top:14px}.chat-messages{height:180px}.assistant-intro h2{font-size:40px}.brand-hero{background:radial-gradient(ellipse at 50% 42%,#e8eee2 0,#dfe8dc 53%,#d6e2d8 100%)}}
+
   </style>
 </head>
 <body class="simple-home">
@@ -92,43 +148,32 @@ body.simple-home{background:#f5f5ef}
     </section>
     <section class="product-section section-pad" id="products">
       <div class="product-heading"><div><span class="section-kicker">IN STORE</span><h2>Products for<br><em>everyday wellbeing.</em></h2></div><p>Browse a few of our pharmacy and wellness selections.</p></div>
-      <div class="product-reel" aria-label="Featured products from Dek450 Pharmacy">
-        <div class="product-reel-head"><span>IN STORE AT DEK450</span><button class="reel-toggle" type="button" aria-pressed="false">Pause product reel</button></div>
-        <div class="product-reel-window">
-          <div class="product-reel-track">
-            <div class="product-set">
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://s.alicdn.com/%40sc04/kf/Hcd3b571f0f4d42efb1f224459f915e5bR/TWG-RTS-30ml-Collagen-Serum-for-Face-5-in-1-Face-Moisturizer-Nourishing-Skin-Brightening-Nicotinamide-Serum-Anti-Spot-Face-Serum.jpg" alt="TWG facial serum boxes" loading="lazy"></div><div class="product-tile-copy"><span>SKINCARE</span><h3>Facial serums</h3><p>TWG serum options, shown on the product packaging.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://m.media-amazon.com/images/I/41KmDezeaeL._SL500_.jpg" alt="NeoCell collagen and biotin dietary supplement bottle" loading="lazy"></div><div class="product-tile-copy"><span>WELLNESS</span><h3>Collagen + biotin</h3><p>Dietary supplement. Check the label and ask our pharmacy team if you have questions.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://australianvit.com/cdn/shop/files/natural-bioscience-shilajit-gummies-bottle.jpg?v=1768195522" alt="Shilajit gummies product bottle" loading="lazy"></div><div class="product-tile-copy"><span>GUMMIES</span><h3>Shilajit gummies</h3><p>A gummy dietary supplement available in store.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://www.dhop.store/wp-content/uploads/2026/04/gastrointestinal-probiotics-capsules-60-count-dho-y3pfq57f-desc-1.webp" alt="DHOP gastrointestinal probiotic capsules" loading="lazy"></div><div class="product-tile-copy"><span>SUPPLEMENTS</span><h3>Probiotic capsules</h3><p>Dietary supplement. Follow the pack directions.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://i.ebayimg.com/images/g/MJcAAeSwzSNotcEL/s-l1200.jpg" alt="Magnesium 12-in-1 dietary supplement cartons" loading="lazy"></div><div class="product-tile-copy"><span>SUPPLEMENTS</span><h3>Magnesium complex</h3><p>Multi-form magnesium dietary supplement; see the product label for details.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://api.paseero.ng/uploads/ads/photos/5329/329510867_photo-0-6_1761808052_LXiKbW.jpg.webp" alt="AJ Wellness evening primrose oil capsules" loading="lazy"></div><div class="product-tile-copy"><span>WELLNESS</span><h3>Evening primrose oil</h3><p>1000 mg softgel capsules. Ask our pharmacist whether it suits you.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://www.meldinpharma.com/web/image/product.template/8363/image_1024?unique=b0167de" alt="AJ Wellness Skin Radiance supplement carton" loading="lazy"></div><div class="product-tile-copy"><span>SKINCARE</span><h3>Skin Radiance</h3><p>Supplement with nutrients listed on the pack. Check ingredients before use.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://instudio.mabangapp.com/img/202533/BOT3099/BOT3099g07.jpg" alt="Women's probiotic gummies pouch" loading="lazy"></div><div class="product-tile-copy"><span>GUMMIES</span><h3>Women’s probiotic gummies</h3><p>Cranberry flavour dietary supplement. Read the label before use.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://vrvxulmvdhbyyxqhqjbk.supabase.co/storage/v1/object/public/product-images/561471be-8969-421c-bc58-7d64977a1845/1793211354866-av9adky.jpg" alt="TWG rice pulp and niacinamide body lotions" loading="lazy"></div><div class="product-tile-copy"><span>BODY CARE</span><h3>Body lotions</h3><p>Rice pulp and niacinamide lotion options, 500 ml bottles.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://i5.walmartimages.com/seo/NOW-Supplements-Ultra-Omega-3-and-Vitamin-D-3_b3e30a89-b120-4a3c-a64f-1dd2f44511b0.114c93f44e054d52ff3907b2678e2e4d.jpeg" alt="NOW Vitamin D3 and Omega-3 bottles" loading="lazy"></div><div class="product-tile-copy"><span>VITAMINS</span><h3>Vitamin D3 + Omega-3</h3><p>Product options shown. Ask our pharmacist for guidance on supplements.</p></div></article>
-            </div>
-            <div class="product-set" aria-hidden="true">
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://s.alicdn.com/%40sc04/kf/Hcd3b571f0f4d42efb1f224459f915e5bR/TWG-RTS-30ml-Collagen-Serum-for-Face-5-in-1-Face-Moisturizer-Nourishing-Skin-Brightening-Nicotinamide-Serum-Anti-Spot-Face-Serum.jpg" alt="" loading="lazy"></div><div class="product-tile-copy"><span>SKINCARE</span><h3>Facial serums</h3><p>TWG serum options, shown on the product packaging.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://m.media-amazon.com/images/I/41KmDezeaeL._SL500_.jpg" alt="" loading="lazy"></div><div class="product-tile-copy"><span>WELLNESS</span><h3>Collagen + biotin</h3><p>Dietary supplement. Check the label and ask our pharmacy team if you have questions.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://australianvit.com/cdn/shop/files/natural-bioscience-shilajit-gummies-bottle.jpg?v=1768195522" alt="" loading="lazy"></div><div class="product-tile-copy"><span>GUMMIES</span><h3>Shilajit gummies</h3><p>A gummy dietary supplement available in store.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://www.dhop.store/wp-content/uploads/2026/04/gastrointestinal-probiotics-capsules-60-count-dho-y3pfq57f-desc-1.webp" alt="" loading="lazy"></div><div class="product-tile-copy"><span>SUPPLEMENTS</span><h3>Probiotic capsules</h3><p>Dietary supplement. Follow the pack directions.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://i.ebayimg.com/images/g/MJcAAeSwzSNotcEL/s-l1200.jpg" alt="" loading="lazy"></div><div class="product-tile-copy"><span>SUPPLEMENTS</span><h3>Magnesium complex</h3><p>Multi-form magnesium dietary supplement; see the product label for details.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://api.paseero.ng/uploads/ads/photos/5329/329510867_photo-0-6_1761808052_LXiKbW.jpg.webp" alt="" loading="lazy"></div><div class="product-tile-copy"><span>WELLNESS</span><h3>Evening primrose oil</h3><p>1000 mg softgel capsules. Ask our pharmacist whether it suits you.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://www.meldinpharma.com/web/image/product.template/8363/image_1024?unique=b0167de" alt="" loading="lazy"></div><div class="product-tile-copy"><span>SKINCARE</span><h3>Skin Radiance</h3><p>Supplement with nutrients listed on the pack. Check ingredients before use.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://instudio.mabangapp.com/img/202533/BOT3099/BOT3099g07.jpg" alt="" loading="lazy"></div><div class="product-tile-copy"><span>GUMMIES</span><h3>Women’s probiotic gummies</h3><p>Cranberry flavour dietary supplement. Read the label before use.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://vrvxulmvdhbyyxqhqjbk.supabase.co/storage/v1/object/public/product-images/561471be-8969-421c-bc58-7d64977a1845/1793211354866-av9adky.jpg" alt="" loading="lazy"></div><div class="product-tile-copy"><span>BODY CARE</span><h3>Body lotions</h3><p>Rice pulp and niacinamide lotion options, 500 ml bottles.</p></div></article>
-              <article class="product-tile"><div class="product-image-wrap"><img src="https://i5.walmartimages.com/seo/NOW-Supplements-Ultra-Omega-3-and-Vitamin-D-3_b3e30a89-b120-4a3c-a64f-1dd2f44511b0.114c93f44e054d52ff3907b2678e2e4d.jpeg" alt="" loading="lazy"></div><div class="product-tile-copy"><span>VITAMINS</span><h3>Vitamin D3 + Omega-3</h3><p>Product options shown. Ask our pharmacist for guidance on supplements.</p></div></article>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="product-grid" aria-label="Featured products from Dek450 Pharmacy">
+        <article class="product-tile"><div class="product-image-wrap"><img src="https://s.alicdn.com/%40sc04/kf/Hcd3b571f0f4d42efb1f224459f915e5bR/TWG-RTS-30ml-Collagen-Serum-for-Face-5-in-1-Face-Moisturizer-Nourishing-Skin-Brightening-Nicotinamide-Serum-Anti-Spot-Face-Serum.jpg" alt="TWG facial serum boxes" loading="lazy"></div><div class="product-tile-copy"><span>SKINCARE</span><h3>Facial serums</h3><p>TWG serum options, shown on the product packaging.</p></div></article>
+        <article class="product-tile"><div class="product-image-wrap"><img src="https://australianvit.com/cdn/shop/files/natural-bioscience-shilajit-gummies-bottle.jpg?v=1768195522" alt="Shilajit gummies product bottle" loading="lazy"></div><div class="product-tile-copy"><span>GUMMIES</span><h3>Shilajit gummies</h3><p>A gummy dietary supplement available in store.</p></div></article>
+        <article class="product-tile"><div class="product-image-wrap"><img src="https://www.dhop.store/wp-content/uploads/2026/04/gastrointestinal-probiotics-capsules-60-count-dho-y3pfq57f-desc-1.webp" alt="DHOP gastrointestinal probiotic capsules" loading="lazy"></div><div class="product-tile-copy"><span>SUPPLEMENTS</span><h3>Probiotic capsules</h3><p>Dietary supplement. Follow the pack directions.</p></div></article>
+        <article class="product-tile"><div class="product-image-wrap"><img src="https://i.ebayimg.com/images/g/MJcAAeSwzSNotcEL/s-l1200.jpg" alt="Magnesium 12-in-1 dietary supplement cartons" loading="lazy"></div><div class="product-tile-copy"><span>SUPPLEMENTS</span><h3>Magnesium complex</h3><p>Multi-form magnesium dietary supplement; see the product label for details.</p></div></article>
+        <article class="product-tile"><div class="product-image-wrap"><img src="https://api.paseero.ng/uploads/ads/photos/5329/329510867_photo-0-6_1761808052_LXiKbW.jpg.webp" alt="AJ Wellness evening primrose oil capsules" loading="lazy"></div><div class="product-tile-copy"><span>WELLNESS</span><h3>Evening primrose oil</h3><p>1000 mg softgel capsules. Ask our pharmacist whether it suits you.</p></div></article>
+        <article class="product-tile"><div class="product-image-wrap"><img src="https://www.meldinpharma.com/web/image/product.template/8363/image_1024?unique=b0167de" alt="AJ Wellness Skin Radiance supplement carton" loading="lazy"></div><div class="product-tile-copy"><span>SKINCARE</span><h3>Skin Radiance</h3><p>Supplement with nutrients listed on the pack. Check ingredients before use.</p></div></article>
+        <article class="product-tile"><div class="product-image-wrap"><img src="https://instudio.mabangapp.com/img/202533/BOT3099/BOT3099g07.jpg" alt="Women's probiotic gummies pouch" loading="lazy"></div><div class="product-tile-copy"><span>GUMMIES</span><h3>Women’s probiotic gummies</h3><p>Cranberry flavour dietary supplement. Read the label before use.</p></div></article>
+        <article class="product-tile"><div class="product-image-wrap"><img src="https://vrvxulmvdhbyyxqhqjbk.supabase.co/storage/v1/object/public/product-images/561471be-8969-421c-bc58-7d64977a1845/1793211354866-av9adky.jpg" alt="TWG rice pulp and niacinamide body lotions" loading="lazy"></div><div class="product-tile-copy"><span>BODY CARE</span><h3>Body lotions</h3><p>Rice pulp and niacinamide lotion options, 500 ml bottles.</p></div></article>
+        <article class="product-tile"><div class="product-image-wrap"><img src="https://i5.walmartimages.com/seo/NOW-Supplements-Ultra-Omega-3-and-Vitamin-D-3_b3e30a89-b120-4a3c-a64f-1dd2f44511b0.114c93f44e054d52ff3907b2678e2e4d.jpeg" alt="NOW Vitamin D3 and Omega-3 bottles" loading="lazy"></div><div class="product-tile-copy"><span>VITAMINS</span><h3>Vitamin D3 + Omega-3</h3><p>Product options shown. Ask our pharmacist for guidance on supplements.</p></div></article>
       </div>
       <p class="gallery-note">Product examples only. Availability can change. Ask our pharmacy team for help choosing safely.</p>
     </section>
     <section class="about-section" id="about">
       <div class="about-logo"><svg viewBox="0 0 48 48" role="img" aria-label="Dek450 pharmacy logo"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="2"/><path d="M24 11v26M11 24h26" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M12.8 13.2c6.1-2.3 10.8 2.4 10.8 10.8-8.4 0-13.1-4.7-10.8-10.8Zm22.4 0c-6.1-2.3-10.8 2.4-10.8 10.8 8.4 0 13.1-4.7 10.8-10.8Z" fill="currentColor" stroke="none"/></svg></div>
-      <div><span class="section-kicker">A LITTLE MORE CARE</span><h2>Local care.<br><em>Everyday essentials.</em></h2><p>Dek450 Pharmacy Limited is here to support the Lashibi community with thoughtful service and everyday health products.</p></div>
+      <div><span class="section-kicker">A LITTLE MORE CARE</span><h2>Local care.<br><em>Everyday essentials.</em></h2><p>Dek450 Pharmacy Limited supports the Lashibi community with thoughtful service and everyday health products.</p><div class="supply-note"><strong>Medical supplies</strong><span>Our medical supply arm also serves clinics, pharmacies and care providers. Contact us for product sourcing and bulk supply inquiries.</span></div></div>
+    </section>
+    <section class="assistant-section section-pad" id="assistant">
+      <div class="assistant-intro"><span class="section-kicker">DEK450 ASSISTANT</span><h2>Questions?<br><em>Ask us here.</em></h2><p>Ask about products, availability, or where to find us. The assistant uses Dek450’s product and store information.</p></div>
+      <div class="chat-card" aria-label="Dek450 product and location assistant">
+        <div class="chat-head"><span class="chat-avatar" aria-hidden="true">✳</span><div><strong>Dek450 Assistant</strong><small>Product &amp; location help</small></div><span class="chat-status">HERE TO HELP</span></div>
+        <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"><div class="chat-bubble assistant-bubble">Hi! Ask me about products in our gallery, current availability, or directions to our Lashibi pharmacy.</div></div>
+        <div class="chat-prompts"><button type="button" data-question="Where is Dek450 Pharmacy?">Location</button><button type="button" data-question="Do you have this product in stock?">Availability</button><button type="button" data-question="What products do you carry?">Products</button></div>
+        <form class="chat-form" id="chatForm"><label class="visually-hidden" for="chatInput">Ask about products or location</label><input id="chatInput" name="question" placeholder="Ask about products or location…" autocomplete="off" required><button type="submit" aria-label="Send message">↑</button></form>
+        <p class="chat-disclaimer">For personal medical advice, speak with our pharmacist. Stock and prices can change.</p>
+      </div>
     </section>
     <section class="contact-section section-pad" id="contact">
       <div class="contact-intro"><span class="section-kicker">COME SAY HELLO</span><h2>Close to home<br><em>in Lashibi.</em></h2><p>Klagon, Lashibi, Tema<br>Near Sakumono Police Station, NDC Junction, Cowpea Street, CB69</p></div>
