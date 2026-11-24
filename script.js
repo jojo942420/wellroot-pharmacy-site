@@ -1,18 +1,85 @@
 const toggle = document.querySelector('.menu-toggle');
-const navigation = document.querySelector('.nav-links');
+const navigation = document.querySelector('#primary-nav');
+
+function setMenu(expanded) {
+  toggle.setAttribute('aria-expanded', String(expanded));
+  toggle.setAttribute('aria-label', expanded ? 'Close navigation' : 'Open navigation');
+  navigation.classList.toggle('open', expanded);
+}
 
 toggle.addEventListener('click', () => {
-  const expanded = toggle.getAttribute('aria-expanded') === 'true';
-  toggle.setAttribute('aria-expanded', String(!expanded));
-  navigation.classList.toggle('open', !expanded);
+  setMenu(toggle.getAttribute('aria-expanded') !== 'true');
 });
 
 navigation.addEventListener('click', (event) => {
-  if (event.target.closest('a')) {
-    toggle.setAttribute('aria-expanded', 'false');
-    navigation.classList.remove('open');
+  const link = event.target.closest('a');
+  if (!link || toggle.getAttribute('aria-expanded') !== 'true') return;
+
+  const target = document.getElementById(link.hash.slice(1));
+  setMenu(false);
+  if (target) {
+    target.setAttribute('tabindex', '-1');
+    target.focus({ preventScroll: true });
   }
 });
+
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape' && toggle.getAttribute('aria-expanded') === 'true') {
+    setMenu(false);
+    toggle.focus();
+  }
+});
+
+document.addEventListener('click', (event) => {
+  if (toggle.getAttribute('aria-expanded') === 'true' && !event.target.closest('.site-header')) setMenu(false);
+});
+
+window.matchMedia('(max-width: 650px)').addEventListener('change', () => setMenu(false));
+
+const catalog = document.querySelector('#catalog-tools');
+const catalogSearch = document.querySelector('#catalog-search');
+const catalogCategory = document.querySelector('#catalog-category');
+const catalogStatus = document.querySelector('#catalog-status');
+const catalogReset = document.querySelector('#catalog-reset');
+const catalogEmpty = document.querySelector('#catalog-empty');
+
+function normalizeSearch(value) {
+  return value.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f’']/g, '')
+    .replace(/[^a-z0-9]+/g, ' ').trim();
+}
+
+const catalogProducts = [...document.querySelectorAll('#product-grid .product-tile')].map((card) => ({
+  card,
+  category: card.dataset.category,
+  text: normalizeSearch([...card.querySelector('.product-tile-copy').children].map((field) => field.textContent).join(' ') + ' ' + card.querySelector('img').alt)
+}));
+
+function updateCatalog() {
+  const terms = normalizeSearch(catalogSearch.value).split(' ').filter(Boolean);
+  const category = catalogCategory.value;
+  let visible = 0;
+
+  for (const product of catalogProducts) {
+    const matches = (!category || category === product.category) && terms.every((term) => product.text.includes(term));
+    product.card.hidden = !matches;
+    if (matches) visible += 1;
+  }
+
+  catalogStatus.textContent = visible === 1 ? '1 product' : `${visible} products`;
+  catalogEmpty.hidden = visible !== 0;
+  catalogReset.hidden = !catalogSearch.value && !category;
+}
+
+catalogSearch.addEventListener('input', updateCatalog);
+catalogCategory.addEventListener('change', updateCatalog);
+catalogReset.addEventListener('click', () => {
+  catalogSearch.value = '';
+  catalogCategory.value = '';
+  catalogSearch.focus();
+  updateCatalog();
+});
+updateCatalog();
+catalog.hidden = false;
 
 document.querySelector('#year').textContent = new Date().getFullYear();
 
@@ -31,7 +98,7 @@ const dek450Knowledge = [
   {
     intent: 'location',
     terms: ['where', 'location', 'address', 'directions', 'find you', 'situated', 'map', 'near'],
-    answer: 'Dek450 Pharmacy is in Klagon, Lashibi, Tema, near Sakumono Police Station at NDC Junction, Cowpea Street, CB69. Use “Open map” in the Contact section for directions.'
+    answer: 'Dek450 Pharmacy is in Klagon, Lashibi, Tema, near Sakumono Police Station at NDC Junction, Cowpea Street, CB69. Use “Open in Google Maps” in the Contact section for directions.'
   },
   {
     intent: 'contact',
