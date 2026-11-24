@@ -10,6 +10,67 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css?v=dek450-20261124">
+  <style>
+/* Simple Dek450 home refresh */
+body.simple-home{background:#f5f5ef}
+.simple-home .site-header{height:82px;background:#f5f5ef;padding:0 clamp(22px,7vw,100px)}
+.simple-home .brand{gap:10px;color:#153d34}
+.simple-home .brand-mark{width:42px;height:42px;border:0;background:#e5edda;border-radius:50%;color:#2e5f45;box-shadow:inset 0 1px 4px #fff,0 4px 10px #153d3420}
+.simple-home .brand-mark svg{width:34px;height:34px;fill:currentColor;stroke:none}
+.simple-home .nav-links{gap:32px}
+.simple-home .nav-cta{border-radius:999px;padding:13px 21px}
+.brand-hero{position:relative;min-height:570px;overflow:hidden;display:grid;place-items:center;text-align:center;color:#f4f2e8;background:radial-gradient(ellipse at 50% 44%,#1d594a 0,#153f35 42%,#0c2e29 100%);isolation:isolate}
+.brand-hero:before{content:"";position:absolute;inset:0;opacity:.17;background-image:linear-gradient(#b6cb9d20 1px,transparent 1px),linear-gradient(90deg,#b6cb9d20 1px,transparent 1px);background-size:58px 58px;mask-image:linear-gradient(180deg,transparent,#000 20%,#000 82%,transparent);z-index:-1}
+.brand-hero:after{content:"";position:absolute;width:min(72vw,720px);height:min(72vw,720px);border:1px solid #d7e7b22b;border-radius:50%;box-shadow:0 0 0 34px #d7e7b20c,0 0 0 82px #d7e7b208;z-index:-1}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(2px);z-index:-1}
+.orb-one{width:330px;height:330px;top:-190px;left:9%;background:radial-gradient(circle at 60% 70%,#d9e7b036,transparent 70%)}
+.orb-two{width:400px;height:400px;bottom:-245px;right:9%;background:radial-gradient(circle at 40% 30%,#a7c77d30,transparent 70%)}
+.hero-inner{position:relative;z-index:1;padding:56px 20px 70px;max-width:1000px}
+.hero-logo{width:70px;height:70px;margin:0 auto 24px;display:grid;place-items:center;border-radius:23px;color:#123c32;background:linear-gradient(145deg,#f7f7e9,#bfd88b 65%,#91ae65);box-shadow:inset 0 2px 1px #fff9,0 10px 0 #0a2925,0 18px 34px #061d1b85;transform:perspective(400px) rotateX(7deg)}
+.hero-logo svg{width:52px;height:52px;fill:currentColor;stroke:none}
+.hero-kicker,.section-kicker{display:flex;align-items:center;gap:9px;text-transform:uppercase;font-size:9px;font-weight:700;letter-spacing:2px;color:#c2d49c}
+.hero-kicker{justify-content:center}
+.hero-kicker span{width:7px;height:7px;border-radius:50%;background:#d9e77e;box-shadow:0 0 12px #d9e77e}
+.brand-3d{margin:27px 0 18px;display:flex;flex-direction:column;align-items:center;line-height:.9}
+.brand-3d span{font:800 clamp(68px,11vw,136px)/.92 var(--display);letter-spacing:-.095em;padding-right:.095em;color:#f5f4e7;background:linear-gradient(180deg,#fffef3 2%,#d7e9b4 35%,#91ad69 72%,#edf1d9 100%);background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent;filter:drop-shadow(0 2px 0 #78935c) drop-shadow(0 5px 0 #52734d) drop-shadow(0 8px 0 #294b3f) drop-shadow(0 13px 12px #061c1980);transform:perspective(900px) rotateX(3deg)}
+.brand-3d small{margin-top:18px;font:700 clamp(15px,2vw,22px)/1 var(--sans);letter-spacing:.48em;color:#e7e7d5;padding-left:.48em;text-shadow:0 2px 0 #143d34,0 7px 16px #061c19a0}
+.hero-summary{max-width:440px;margin:28px auto 24px;font-size:14px;line-height:1.8;color:#d3ddc9}
+.hero-button,.map-button{display:inline-flex;align-items:center;justify-content:center;gap:22px;padding:15px 21px;border-radius:999px;background:#dbe98a;color:#173c31;font-size:11px;font-weight:700;box-shadow:0 5px 0 #9cb45f,0 11px 22px #071e1b52;transition:transform .2s ease,box-shadow .2s ease}
+.hero-button:hover,.map-button:hover{transform:translateY(-2px);box-shadow:0 7px 0 #9cb45f,0 15px 25px #071e1b50}
+.hero-button span{font-size:16px}
+.hero-foot{position:absolute;left:clamp(22px,7vw,100px);right:clamp(22px,7vw,100px);bottom:20px;display:flex;justify-content:space-between;color:#c1cead;font-size:8px;letter-spacing:1.8px}
+.product-section{padding-top:75px;padding-bottom:70px;background:#f5f5ef}
+.product-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;margin-bottom:33px}
+.product-heading h2,.about-section h2,.contact-intro h2{font:600 clamp(38px,5.4vw,66px)/1.04 var(--display);letter-spacing:-3.2px;color:#153e36;margin:13px 0 0}
+.product-heading h2 em,.about-section h2 em,.contact-intro h2 em{font:italic 500 1em/1 var(--serif);letter-spacing:-2px;color:#8e9d61}
+.product-heading>p{max-width:250px;margin:0 0 5px;font-size:12px;line-height:1.7;color:#69756b}
+.product-section .section-kicker,.contact-section .section-kicker,.about-section .section-kicker{color:#82914c}
+.product-section .product-reel{margin-top:0}
+.product-section .product-reel-head{padding-bottom:14px}
+.product-section .product-reel-head>span{color:#61715d}
+.product-section .reel-toggle{border-radius:999px}
+.gallery-note{font-size:10px;line-height:1.6;color:#788177;margin:15px 0 0}
+.about-section{padding:66px clamp(22px,10vw,150px);display:grid;grid-template-columns:90px 1fr;gap:32px;align-items:center;background:linear-gradient(110deg,#e7ecdc,#f3f1e6 62%,#e3ebda)}
+.about-logo{width:74px;height:74px;display:grid;place-items:center;background:#153e36;color:#dbe98a;border-radius:24px;box-shadow:inset 0 2px 4px #ffffff30,0 8px 0 #0d3029,0 14px 24px #183d2a27;transform:perspective(500px) rotateY(-8deg) rotateX(5deg)}
+.about-logo svg{width:48px;height:48px;fill:currentColor;stroke:none}
+.about-section h2{font-size:clamp(34px,4vw,48px);margin:12px 0}
+.about-section p{max-width:560px;font-size:13px;line-height:1.85;color:#627064;margin:0}
+.contact-section{display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;padding-top:74px;padding-bottom:78px}
+.contact-intro h2{font-size:clamp(42px,5vw,62px)}
+.contact-intro>p{font-size:12px;line-height:1.9;color:#69756b;margin-top:20px}
+.contact-card{display:flex;flex-direction:column;align-items:flex-start;gap:12px;padding:30px 34px;background:#fff;border:1px solid #e1e5d9;border-radius:14px;box-shadow:0 18px 48px #153e3610}
+.contact-card .section-kicker{margin-bottom:5px}
+.contact-card>a:not(.map-button){font:700 19px var(--display);letter-spacing:-.5px;color:#153e36}
+.contact-card .map-button{margin-top:8px}
+.simple-footer{min-height:112px;padding:24px clamp(22px,7vw,100px);display:flex;align-items:center;justify-content:space-between;gap:20px;background:#0e332d;color:#dbe2d2}
+.simple-footer .brand{color:#f1f0e5}
+.simple-footer .brand-mark{background:#244b40;color:#dbe98a;box-shadow:none}
+.simple-footer .brand-sub{color:#bbc6b2}
+.simple-footer p,.simple-footer small{font-size:10px;color:#bcc8ba;margin:0}
+@media(max-width:760px){.simple-home .site-header{height:72px}.simple-home .nav-links{gap:18px}.brand-hero{min-height:520px}.hero-inner{padding-top:46px}.hero-foot{font-size:7px}.product-heading{align-items:flex-start;flex-direction:column;gap:15px}.product-heading h2{font-size:44px}.about-section{grid-template-columns:60px 1fr;gap:19px;padding:50px 24px}.about-logo{width:58px;height:58px;border-radius:18px}.about-logo svg{width:39px;height:39px}.contact-section{grid-template-columns:1fr;gap:26px;padding-top:56px;padding-bottom:58px}.contact-card{width:100%;padding:26px}.simple-footer{flex-wrap:wrap;padding:22px 24px}.simple-footer p{order:3;width:100%}}
+@media(max-width:600px){.simple-home .nav-links{gap:14px;font-size:10px}.simple-home .nav-cta{padding:10px 13px}.simple-home .brand{font-size:19px}.simple-home .brand-mark{width:37px;height:37px}.brand-hero{min-height:492px}.hero-inner{padding:42px 18px 62px}.hero-logo{width:60px;height:60px;border-radius:20px;margin-bottom:20px}.hero-logo svg{width:45px;height:45px}.brand-3d{margin-top:25px}.brand-3d span{font-size:clamp(57px,15vw,82px)}.brand-3d small{font-size:13px;letter-spacing:.38em;padding-left:.38em}.hero-summary{font-size:12px;max-width:325px}.hero-foot{left:20px;right:20px;font-size:6px;letter-spacing:1px}.product-section{padding-top:52px;padding-bottom:46px}.product-heading h2{font-size:38px}.product-section .product-reel{margin-left:-20px;margin-right:-20px}.product-section .product-reel-head{padding-left:20px;padding-right:20px}.product-tile{min-height:390px}.product-image-wrap{height:250px}.about-section h2{font-size:32px;letter-spacing:-1.6px}.about-section h2 em,.contact-intro h2 em{letter-spacing:-1px}.contact-intro h2{font-size:45px}.simple-footer{gap:14px}.simple-footer .brand{font-size:18px}}
+
+  </style>
 </head>
 <body class="simple-home">
   <header class="site-header">
