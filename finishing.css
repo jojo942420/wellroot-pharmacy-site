@@ -198,3 +198,83 @@ html { scroll-padding-top: 88px; }
 @media (max-width: 365px) {
   .simple-home .video-grid { grid-template-columns: 1fr; }
 }
+
+/* Copper and evergreen palette */
+.simple-home {
+  --sans: "Source Sans 3", "Segoe UI", sans-serif;
+  --display: "Bricolage Grotesque", "Segoe UI", sans-serif;
+  --accent: #81432d;
+  --accent-dark: #643321;
+  --accent-tint: #f5e4d7;
+  font-family: var(--sans);
+}
+.simple-home .brand-3d > span {
+  font-family: var(--display);
+  font-weight: 800;
+  letter-spacing: -.075em;
+}
+.simple-home .brand-3d small { font-family: var(--sans); font-weight: 700; }
+.simple-home :is(.product-heading, .video-heading, .contact-intro, .about-section, .assistant-intro, .supply-copy) h2,
+.simple-home .product-section .product-grid .product-tile-copy h3,
+.simple-home .video-card figcaption strong {
+  font-family: var(--display);
+}
+.simple-home .site-header .nav-cta,
+.medicine-enquiries-call {
+  background: var(--accent);
+  color: #fff9ee;
+}
+.simple-home .site-header .nav-cta:hover,
+.medicine-enquiries-call:hover { background: var(--accent-dark); }
+.simple-home .site-header .nav-cta span { color: #ffdbc1; }
+.simple-home :is(.section-kicker, .product-section .product-grid .product-tile-copy > span) {
+  color: var(--accent);
+  letter-spacing: .12em;
+}
+.simple-home .contact-card .section-kicker,
+.simple-home .assistant-section .section-kicker,
+.simple-home .product-section .section-kicker { color: var(--accent); }
+.catalog-meta button,
+.simple-home .product-section .product-grid .product-detail-link { color: var(--accent); }
+.simple-home .motion-button {
+  border-color: #bd8a71;
+  background: #fff5eb;
+  color: var(--accent-dark);
+}
+.simple-home .motion-button:hover { background: var(--accent-tint); }
+
+.medicine-enquiries {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px 28px;
+  padding: 27px var(--page-gutter);
+  border-block: 1px solid #dbc5b5;
+  background: linear-gradient(105deg, #f6e7da, #f9f5eb 70%);
+}
+.medicine-enquiries h2 {
+  margin: 0 0 4px;
+  color: #244438;
+  font: 700 clamp(23px, 3vw, 32px)/1.15 var(--display);
+  letter-spacing: -.025em;
+}
+.medicine-enquiries p {
+  max-width: 58ch;
+  margin: 0;
+  color: #40534a;
+  font-size: 16px;
+  line-height: 1.45;
+}
+.medicine-enquiries-call {
+  display: inline-flex;
+  min-height: 46px;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 17px;
+  border-radius: 999px;
+  font-weight: 700;
+}
+@media (max-width: 650px) {
+  .medicine-enquiries { padding-block: 22px; }
+}
