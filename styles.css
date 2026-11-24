@@ -71,3 +71,32 @@ body.simple-home{background:#f5f5ef}
 .simple-footer p,.simple-footer small{font-size:10px;color:#bcc8ba;margin:0}
 @media(max-width:760px){.simple-home .site-header{height:72px}.simple-home .nav-links{gap:18px}.brand-hero{min-height:520px}.hero-inner{padding-top:46px}.hero-foot{font-size:7px}.product-heading{align-items:flex-start;flex-direction:column;gap:15px}.product-heading h2{font-size:44px}.about-section{grid-template-columns:60px 1fr;gap:19px;padding:50px 24px}.about-logo{width:58px;height:58px;border-radius:18px}.about-logo svg{width:39px;height:39px}.contact-section{grid-template-columns:1fr;gap:26px;padding-top:56px;padding-bottom:58px}.contact-card{width:100%;padding:26px}.simple-footer{flex-wrap:wrap;padding:22px 24px}.simple-footer p{order:3;width:100%}}
 @media(max-width:600px){.simple-home .nav-links{gap:14px;font-size:10px}.simple-home .nav-cta{padding:10px 13px}.simple-home .brand{font-size:19px}.simple-home .brand-mark{width:37px;height:37px}.brand-hero{min-height:492px}.hero-inner{padding:42px 18px 62px}.hero-logo{width:60px;height:60px;border-radius:20px;margin-bottom:20px}.hero-logo svg{width:45px;height:45px}.brand-3d{margin-top:25px}.brand-3d span{font-size:clamp(57px,15vw,82px)}.brand-3d small{font-size:13px;letter-spacing:.38em;padding-left:.38em}.hero-summary{font-size:12px;max-width:325px}.hero-foot{left:20px;right:20px;font-size:6px;letter-spacing:1px}.product-section{padding-top:52px;padding-bottom:46px}.product-heading h2{font-size:38px}.product-section .product-reel{margin-left:-20px;margin-right:-20px}.product-section .product-reel-head{padding-left:20px;padding-right:20px}.product-tile{min-height:390px}.product-image-wrap{height:250px}.about-section h2{font-size:32px;letter-spacing:-1.6px}.about-section h2 em,.contact-intro h2 em{letter-spacing:-1px}.contact-intro h2{font-size:45px}.simple-footer{gap:14px}.simple-footer .brand{font-size:18px}}
+/* Product and video galleries: calm frames, consistent crops, responsive rows */
+.simple-home .product-section{padding-left:clamp(22px,7vw,100px);padding-right:clamp(22px,7vw,100px)}
+.simple-home .product-section .product-grid{grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.simple-home .product-section .product-grid .product-tile{display:flex;flex-direction:column;overflow:hidden;border:1px solid #e3e8df;border-radius:17px;background:#fff;box-shadow:0 8px 24px #455d4910;transition:transform .2s ease,box-shadow .2s ease}
+.simple-home .product-section .product-grid .product-tile:hover{transform:translateY(-3px);box-shadow:0 15px 32px #455d4919}
+.simple-home .product-section .product-grid .product-image-wrap{height:auto;aspect-ratio:1/1;background:#f7f8f3;overflow:hidden;padding:10px}
+.simple-home .product-section .product-grid .product-image-wrap img{width:100%;height:100%;object-fit:contain;border-radius:11px}
+.simple-home .product-section .product-grid .product-tile-copy{display:flex;flex:1;flex-direction:column;align-items:flex-start;padding:18px 18px 20px;min-height:154px}
+.simple-home .product-section .product-grid .product-tile-copy>span{font-size:8px;line-height:1.4;letter-spacing:1.25px;font-weight:700;color:#7a8d73}
+.simple-home .product-section .product-grid .product-tile-copy h3{margin:8px 0 7px;font:750 16px/1.25 "Manrope",var(--display),sans-serif;letter-spacing:-.35px;color:#365548}
+.simple-home .product-section .product-grid .product-tile-copy p{margin:0;font-size:11px;line-height:1.65;color:#68766a}
+.simple-home .product-section .product-grid .product-detail-link{display:inline-flex;align-items:center;gap:7px;margin-top:auto;padding-top:12px;font-size:9px;font-weight:700;color:#617a60}
+.simple-home .product-section .product-grid .product-detail-link:hover{color:#344f43;text-decoration:underline;text-underline-offset:3px}
+.simple-home .gallery-note{max-width:760px;margin-top:24px}
+.video-section{padding:74px clamp(22px,7vw,100px) 78px;background:linear-gradient(120deg,#eff3e9,#f8f8f2 62%,#e9efe6)}
+.video-heading{display:flex;align-items:flex-end;justify-content:space-between;gap:28px;max-width:1420px;margin:0 auto 30px}
+.video-heading h2{margin:13px 0 0;font:600 clamp(38px,5vw,60px)/1.04 "Manrope",var(--display),sans-serif;letter-spacing:-2.7px;color:#405d50}
+.video-heading h2 em{font:italic 500 1em/1 Georgia,serif;letter-spacing:-1.5px;color:#8c9a79}
+.video-heading>p{max-width:260px;margin:0 0 4px;font-size:12px;line-height:1.75;color:#6e796d}
+.video-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;max-width:1420px;margin:0 auto}
+.video-card{margin:0;overflow:hidden;border:1px solid #e0e6dc;border-radius:16px;background:#fff;box-shadow:0 9px 24px #405b4d12}
+.video-card video{display:block;width:100%;aspect-ratio:4/3;object-fit:contain;background:#e8eee4}
+.video-card figcaption{display:grid;gap:5px;padding:13px 16px 16px}
+.video-card figcaption span{font-size:8px;letter-spacing:1.4px;font-weight:700;color:#849474}
+.video-card figcaption strong{font:700 13px "Manrope",var(--display),sans-serif;color:#40594a}
+@media(max-width:1200px){.simple-home .product-section .product-grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:850px){.simple-home .product-section .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.simple-home .product-section .product-grid .product-tile-copy{min-height:142px}.video-section{padding-top:58px;padding-bottom:60px}}
+@media(max-width:650px){.simple-home .product-section{padding-left:20px;padding-right:20px}.simple-home .product-section .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:11px}.simple-home .product-section .product-grid .product-image-wrap{padding:6px}.simple-home .product-section .product-grid .product-tile-copy{padding:14px 13px 16px;min-height:142px}.simple-home .product-section .product-grid .product-tile-copy h3{font-size:14px}.simple-home .product-section .product-grid .product-tile-copy p{font-size:10px}.video-section{padding:50px 20px}.video-heading{align-items:flex-start;flex-direction:column;gap:14px}.video-heading h2{font-size:39px}.video-heading>p{max-width:340px}.video-grid{grid-template-columns:1fr;gap:13px}}
+@media(max-width:380px){.simple-home .product-section .product-grid{grid-template-columns:1fr}}

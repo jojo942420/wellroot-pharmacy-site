@@ -70,8 +70,8 @@ const dek450Knowledge = [
   },
   {
     intent: 'probiotics',
-    terms: ['probiotic', 'gummy', 'gummies', 'women'],
-    answer: 'The gallery includes probiotic capsules and women’s probiotic gummies. Please read the product label and contact our pharmacist with product questions.'
+    terms: ['probiotic', 'gummy', 'gummies', 'women', 'menopause', 'vaginal', 'flora'],
+    answer: 'The gallery includes women’s, menopause, vaginal, and general probiotic capsule and gummy options. Check each pack for ingredients and directions, and ask our pharmacist about suitability.'
   },
   {
     intent: 'magnesium',
@@ -80,8 +80,8 @@ const dek450Knowledge = [
   },
   {
     intent: 'other-products',
-    terms: ['primrose', 'skin radiance', 'collagen', 'biotin', 'shilajit', 'supplement', 'product', 'products', 'carry', 'browse'],
-    answer: 'Our gallery features skincare, body care, vitamins, and wellness supplements, including evening primrose oil, Skin Radiance, collagen/biotin, and shilajit gummies. Product examples may change; call us to confirm stock.'
+    terms: ['primrose', 'skin radiance', 'collagen', 'biotin', 'shilajit', 'kidney cleanse', 'ovaboost', 'pcos', 'fertility', 'coq10', 'memory', 'focus', 'eye vitamins', 'joint support', 'sleep', 'supplement', 'product', 'products', 'carry', 'browse'],
+    answer: 'The gallery features skincare and body care, vitamins, gummies, and wellness supplements such as OvaBoost, PCOS multivitamin, CoQ10, Joint Support, Memory & Focus, and Kidney Cleanse. Product examples and availability may change; call to confirm current stock. For personal advice, speak with our pharmacist.'
   }
 ];
 
