@@ -280,7 +280,7 @@ body.simple-home,.product-section{background:#f2f0e6}
 @media(max-width:760px){.assistant-section{grid-template-columns:1fr;gap:23px;padding-top:62px;padding-bottom:68px}.assistant-intro h2{font-size:45px}.assistant-promise{margin-top:18px}.chat-messages{height:205px}.supply-section{grid-template-columns:48px 1fr;gap:15px;padding:34px 24px}.supply-symbol{width:43px;height:43px;border-radius:13px;font-size:32px}.supply-cta{grid-column:2;justify-self:start;margin-top:2px}.supply-copy h2{font-size:26px}.supply-audience{gap:7px;font-size:6px}}
 @media(max-width:430px){.chat-head{padding:14px}.chat-status{font-size:7px;letter-spacing:.4px}.chat-welcome{padding:18px 17px 12px}.chat-messages{padding:16px 14px}.chat-prompts{padding:12px 13px;gap:6px}.chat-prompts button{padding:8px 9px;font-size:8px}.chat-form{margin:0 12px}.supply-section{padding:31px 20px;grid-template-columns:40px 1fr;gap:12px}.supply-symbol{width:38px;height:38px}.supply-audience{flex-wrap:wrap}.supply-cta{font-size:9px}}
 </style>
-  <link rel="stylesheet" href="finishing.css?v=2">
+  <link rel="stylesheet" href="finishing.css?v=3">
 </head>
 <body class="simple-home">
   <a class="skip-link" href="#top">Skip to main content</a>
@@ -382,15 +382,35 @@ body.simple-home,.product-section{background:#f2f0e6}
       <div class="about-logo"><svg viewBox="0 0 48 48" role="img" aria-label="Dek450 pharmacy logo"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="2"/><path d="M24 11v26M11 24h26" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M12.8 13.2c6.1-2.3 10.8 2.4 10.8 10.8-8.4 0-13.1-4.7-10.8-10.8Zm22.4 0c-6.1-2.3-10.8 2.4-10.8 10.8 8.4 0 13.1-4.7 10.8-10.8Z" fill="currentColor" stroke="none"/></svg></div>
       <div><span class="section-kicker">A LITTLE MORE CARE</span><h2>Local care.<br><em>Everyday essentials.</em></h2><p>Dek450 Pharmacy Limited supports the Lashibi community with thoughtful service and everyday health products.</p></div>
     </section>
-    <section class="assistant-section section-pad" id="assistant">
-      <div class="assistant-intro"><span class="section-kicker">DEK450 ASSISTANT</span><h2>Good answers.<br><em>Close to home.</em></h2><p>Browse the store guide or call our team to confirm current stock.</p></div>
-      <div class="chat-card" role="region" aria-label="Dek450 product and location assistant">
-        <div class="chat-head"><span class="chat-avatar" aria-hidden="true">✦</span><div class="chat-identity"><strong>Dek450 Assistant</strong><small>Product &amp; location guide</small></div><span class="chat-status"><i></i> READY TO HELP</span></div>
-        <div class="chat-welcome"><span>STORE GUIDE</span><h3>What can I help you find?</h3><p>Ask naturally, or choose a quick question below.</p></div>
-        <div class="chat-messages" id="chatMessages" role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions text"><div class="message-row assistant-row"><span class="message-avatar" aria-hidden="true">✦</span><div class="message-content"><span class="message-author">DEK450 ASSISTANT</span><div class="chat-bubble assistant-bubble">Hello! I can help you explore products, check how to confirm today’s stock, or find our pharmacy.</div></div></div></div>
-        <div class="chat-prompts" aria-label="Suggested questions"><button type="button" data-question="What products do you carry?"><span aria-hidden="true">▦</span> Browse products</button><button type="button" data-question="How do I check product availability?"><span aria-hidden="true">◷</span> Check availability</button><button type="button" data-question="Where is Dek450 Pharmacy?"><span aria-hidden="true">⌖</span> Get directions</button></div>
-        <form class="chat-form" id="chatForm"><label class="visually-hidden" for="chatInput">Ask Dek450 about products or location</label><input id="chatInput" name="question" maxlength="240" placeholder="Type your question…" autocomplete="off" required><button type="submit" aria-label="Send message"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 4 17 8-17 8 3-8-3-8Zm3 8h14"/></svg></button></form>
-        <p class="chat-disclaimer"><span aria-hidden="true">ⓘ</span> For personal health advice, please speak with our pharmacist. Availability may change.</p>
+    <section class="assistant-section section-pad" id="assistant" aria-labelledby="assistant-title">
+      <div class="assistant-intro">
+        <span class="section-kicker">PHARMACY HELP</span>
+        <h2 id="assistant-title">Ask Dek450.</h2>
+        <p>Find our hours, directions, and details from the product catalog. For live stock, prices or personal advice, speak with our pharmacy team.</p>
+        <a class="assistant-call" href="tel:+233533805134">Call the pharmacy <span aria-hidden="true">↗</span></a>
+      </div>
+      <div class="chat-card pharmacy-chat" role="region" aria-labelledby="pharmacy-chat-title">
+        <header class="chat-head">
+          <span class="chat-avatar" aria-hidden="true">D</span>
+          <div class="chat-identity"><strong id="pharmacy-chat-title">Dek450 Assistant</strong><small>Pharmacy information guide</small></div>
+          <button class="chat-reset" id="chatReset" type="button" hidden>Clear chat</button>
+        </header>
+        <div class="chat-messages" id="chatMessages" role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions">
+          <div class="message-row assistant-row"><div class="message-content"><span class="message-author">Dek450 Assistant</span><div class="chat-bubble assistant-bubble">Hello! Ask me about opening hours, directions, prescriptions, or a product by name.</div></div></div>
+        </div>
+        <div class="chat-prompts" role="group" aria-label="Suggested questions">
+          <button type="button" data-question="What are your opening hours?">Opening hours</button>
+          <button type="button" data-question="Where is Dek450 Pharmacy?">Directions</button>
+          <button type="button" data-question="How do I check if a product is in stock?">Check stock</button>
+          <button type="button" data-question="How can I ask about a prescription?">Prescriptions</button>
+        </div>
+        <form class="chat-form" id="chatForm">
+          <label class="visually-hidden" for="chatInput">Your pharmacy question</label>
+          <input id="chatInput" name="question" maxlength="240" placeholder="Ask a pharmacy question…" autocomplete="off" required>
+          <button type="submit">Send</button>
+        </form>
+        <p class="chat-disclaimer">For personal medical advice, call the pharmacy. Keep personal and prescription details out of the chat.</p>
+        <noscript><p class="chat-disclaimer">Call <a href="tel:+233533805134">053 380 5134</a> for help.</p></noscript>
       </div>
     </section>
     <section class="contact-section section-pad" id="contact">
@@ -400,7 +420,8 @@ body.simple-home,.product-section{background:#f2f0e6}
         </div></div>
       <div class="contact-card">
         <h3>Call the pharmacy</h3>
-        <p>Ask about products, availability or opening hours.</p>
+        <p>Ask about products, availability or prescriptions.</p>
+        <div class="pharmacy-hours"><strong>Opening hours</strong><span><time datetime="08:00">8:00 AM</time>–<time datetime="22:00">10:00 PM</time> <small>Ghana time</small></span></div>
         <a href="tel:+233533805134">053 380 5134</a><a href="tel:+233502113175">050 211 3175</a><a href="tel:+233248442602">024 844 2602</a>
         
       </div>
@@ -412,6 +433,6 @@ body.simple-home,.product-section{background:#f2f0e6}
     <a class="supply-cta" href="tel:+233533805134">Discuss a supply order <span aria-hidden="true">↗</span></a>
   </section>
   <footer class="simple-footer"><a class="brand footer-brand" href="#top"><span class="brand-mark"><svg viewBox="0 0 48 48" role="img" aria-label="Dek450 pharmacy logo"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="2"/><path d="M24 11v26M11 24h26" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M12.8 13.2c6.1-2.3 10.8 2.4 10.8 10.8-8.4 0-13.1-4.7-10.8-10.8Zm22.4 0c-6.1-2.3-10.8 2.4-10.8 10.8 8.4 0 13.1-4.7 10.8-10.8Z" fill="currentColor" stroke="none"/></svg></span><span>Dek450<span class="brand-sub">PHARMACY LIMITED</span></span></a><nav aria-label="Footer navigation"><a href="#products">Products</a><a href="#contact">Directions</a><a href="#medical-supplies">Medical supplies</a></nav><small>© <span id="year"></span> Dek450 Pharmacy Limited</small></footer>
-  <script src="script.js?v=dek450-finishing-1"></script>
+  <script src="script.js?v=dek450-assistant-3"></script>
 </body>
 </html>

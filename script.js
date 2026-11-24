@@ -87,175 +87,195 @@ const chatForm = document.querySelector('#chatForm');
 const chatInput = document.querySelector('#chatInput');
 const chatMessages = document.querySelector('#chatMessages');
 const chatPrompts = document.querySelector('.chat-prompts');
-const sendButton = chatForm.querySelector('button[type="submit"]');
+const chatReset = document.querySelector('#chatReset');
+const welcomeMessage = chatMessages.firstElementChild.cloneNode(true);
+const hours = [...document.querySelectorAll('.pharmacy-hours time')].map((time) => time.textContent);
+const phoneLinks = [...document.querySelectorAll('.contact-card > a[href^="tel:"]')];
+const mainPhone = { label: 'Call ' + phoneLinks[0].textContent.trim(), href: phoneLinks[0].getAttribute('href') };
+const directions = { label: 'Open in Google Maps', href: document.querySelector('.address-copy a').href };
+const catalogLink = { label: 'Browse products', href: '#products' };
+const supplyLink = { label: 'Medical supplies enquiries', href: '#medical-supplies' };
+const contactLink = { label: 'Hours and contact', href: '#contact' };
 
-const dek450Knowledge = [
-  {
-    intent: 'safety',
-    terms: ['dose', 'dosage', 'how many', 'how much should', 'take for', 'treatment', 'treat', 'symptom', 'diagnose', 'pregnant', 'pregnancy', 'side effect', 'safe for me', 'interaction', 'medicine for', 'antibiotic'],
-    answer: 'I can help with store and product information, but I can’t recommend a medicine, dose, or treatment. Please speak with our pharmacist or your healthcare professional for personal advice.'
-  },
-  {
-    intent: 'location',
-    terms: ['where', 'location', 'address', 'directions', 'find you', 'situated', 'map', 'near'],
-    answer: 'Dek450 Pharmacy is in Klagon, Lashibi, Tema, near Sakumono Police Station at NDC Junction, Cowpea Street, CB69. Use “Open in Google Maps” in the Contact section for directions.'
-  },
-  {
-    intent: 'contact',
-    terms: ['phone', 'call', 'contact', 'number', 'telephone', 'reach you'],
-    answer: 'Call our team on 053 380 5134, 050 211 3175, or 024 844 2602.'
-  },
-  {
-    intent: 'hours',
-    terms: ['open', 'opening hours', 'hours', 'closing', 'when are you'],
-    answer: 'I don’t have confirmed opening hours. Please call 053 380 5134 or 050 211 3175 before visiting.'
-  },
-  {
-    intent: 'medical-supplies',
-    terms: ['medical supply', 'medical supplies', 'bulk order', 'bulk supply', 'clinic supply', 'supply business', 'care provider', 'wholesale'],
-    answer: 'Dek450 Medical Supplies serves clinics, pharmacies, and care providers with product sourcing and bulk supply inquiries. Use the “Discuss a supply order” link at the bottom of the page to call our team.'
-  },
-  {
-    intent: 'availability',
-    terms: ['stock', 'available', 'availability', 'in stock', 'price', 'cost', 'buy', 'sell', 'do you have', 'how much is'],
-    answer: 'Stock and prices can change. Call our team on 053 380 5134 or 050 211 3175 to confirm today’s availability and price.'
-  },
-  {
-    intent: 'serum',
-    terms: ['serum', 'facial', 'alpha arbutin', 'arbutin', 'niacinamide'],
-    answer: 'The gallery includes TWG facial serums, including 5-in-1 and Alpha-Arbutin options. Contact us to confirm current stock and price.'
-  },
-  {
-    intent: 'body-care',
-    terms: ['lotion', 'body care', 'rice pulp'],
-    answer: 'The gallery shows TWG body lotions, including rice pulp and niacinamide options in 500 ml bottles. Contact us to check what is currently in stock.'
-  },
-  {
-    intent: 'vitamins',
-    terms: ['vitamin', 'd3', 'omega', 'fish oil'],
-    answer: 'Vitamin D3 and Omega-3 supplement options are shown in the gallery. Ask our pharmacist for guidance, and call us to confirm availability.'
-  },
-  {
-    intent: 'probiotics',
-    terms: ['probiotic', 'gummy', 'gummies', 'women', 'menopause', 'vaginal', 'flora'],
-    answer: 'The gallery includes women’s, menopause, vaginal, and general probiotic capsule and gummy options. Check each pack for ingredients and directions, and ask our pharmacist about suitability.'
-  },
-  {
-    intent: 'magnesium',
-    terms: ['magnesium'],
-    answer: 'A magnesium complex supplement is shown in the gallery. For ingredients, suitability, and current stock, speak with our pharmacy team.'
-  },
-  {
-    intent: 'other-products',
-    terms: ['primrose', 'skin radiance', 'collagen', 'biotin', 'shilajit', 'kidney cleanse', 'ovaboost', 'pcos', 'fertility', 'coq10', 'memory', 'focus', 'eye vitamins', 'joint support', 'sleep', 'supplement', 'product', 'products', 'carry', 'browse'],
-    answer: 'The gallery features skincare and body care, vitamins, gummies, and wellness supplements such as OvaBoost, PCOS multivitamin, CoQ10, Joint Support, Memory & Focus, and Kidney Cleanse. Product examples and availability may change; call to confirm current stock. For personal advice, speak with our pharmacist.'
-  }
-];
+const chatProducts = catalogProducts.map(({ card, category }) => {
+  const name = card.querySelector('h3').textContent;
+  const description = card.querySelector('.product-tile-copy p').textContent;
+  const alt = card.querySelector('img').alt;
+  const label = card.querySelector('.product-detail-link');
+  const nameKey = normalizeSearch(name);
+  if (!card.id) card.id = 'product-' + nameKey.replaceAll(' ', '-');
+  return {
+    name, description, category, nameKey,
+    alias: normalizeSearch(alt),
+    label: label && { label: 'View ' + name + ' label', href: label.href },
+    link: { label: 'See ' + name, href: '#' + card.id, product: card }
+  };
+});
+let lastProduct = null;
 
-function normalizeQuestion(value) {
-  return value.toLowerCase().replace(/[^a-z0-9\s]/g, ' ').replace(/\s+/g, ' ').trim();
+function hasPhrase(value, phrase) {
+  return (' ' + value + ' ').includes(' ' + phrase + ' ');
+}
+
+function findProduct(value) {
+  const ignored = new Set('a an and care do for have i is it me of or please product show support tell the to what you your'.split(' '));
+  const query = value.split(' ').filter((word) => !ignored.has(word));
+  const scores = chatProducts.map((product) => {
+    const nameWords = product.nameKey.split(' ').filter((word) => !ignored.has(word) && word.length > 2);
+    const overlap = nameWords.filter((word) => query.includes(word)).length;
+    const fullMatch = hasPhrase(value, product.nameKey) || hasPhrase(value, product.alias);
+    const compactQuery = value.replaceAll(' ', '');
+    const coq10 = product.nameKey.startsWith('coq10 ') && compactQuery.includes('coq10');
+    const alphaBrain = product.nameKey === 'memory focus' && hasPhrase(value, 'alpha brain');
+    const dha = product.nameKey.includes('dha 500') && (hasPhrase(value, 'dha') || hasPhrase(value, 'fish oil'));
+    const vitamin = product.nameKey.startsWith('vitamin d3') && (hasPhrase(value, 'vitamin d3') || hasPhrase(value, 'd3'));
+    const score = fullMatch ? 20 + nameWords.length : coq10 || alphaBrain || dha || vitamin ? 16 : overlap >= 2 ? overlap : 0;
+    return { product, score };
+  }).sort((a, b) => b.score - a.score);
+  if (!scores[0]?.score || scores[0].score === scores[1]?.score) return null;
+  return scores[0].product;
 }
 
 function getDek450Answer(question) {
-  const normalized = normalizeQuestion(question);
-  const words = new Set(normalized.split(' '));
-  let bestMatch = null;
-  let bestScore = 0;
+  const value = normalizeSearch(question);
+  const replies = [];
+  const actions = new Map();
+  const add = (text, ...links) => {
+    replies.push(text);
+    for (const link of links) if (link) actions.set(link.href, link);
+  };
+  const clinical = /\b(dose|dosage|side effects?|interactions?|pregnan\w*|breastfeed\w*|symptoms?|diagnos\w*|treat\w*|cure\w*|safe for me|can i take|should i take|how to take|what can i take|what should i take|how many (should|can)|medicine for|medication for|recommend)\b/.test(value);
+  const prescription = /\b(prescriptions?|antibiotics?|cholesterol medicines?|statins?|rocephin\w*|ceftriaxone|augmentin|amoxicillin|zithromax|azithromycin|lipitor|atorvastatin|crestor|rosuvastatin)\b/.test(value);
+  const availability = /\b(stock|availab\w*|price|cost|buy|sell|purchase|do you (have|carry|sell)|out of stock|how much (is|does))\b/.test(value);
+  const timing = /\b(open\w*|clos(e|es|ing|ed)|hours|time can i visit|what time|today|sunday|saturday|weekends?|holidays?)\b/.test(value);
 
-  for (const item of dek450Knowledge) {
-    const score = item.terms.reduce((total, term) => {
-      const normalizedTerm = normalizeQuestion(term);
-      return total + (normalized.includes(normalizedTerm) || (!normalizedTerm.includes(' ') && words.has(normalizedTerm)) ? 1 : 0);
-    }, 0);
-    if (score > bestScore) {
-      bestMatch = item;
-      bestScore = score;
+  if (timing && !(/\bopen (the )?(map|catalog|label)\b/.test(value) && !/\b(hours|time|when)\b/.test(value))) {
+    let text = 'Our posted opening hours are ' + hours[0] + ' to ' + hours[1] + ', Ghana time.';
+    if (/\b(now|today|sunday|saturday|weekends?|holidays?|tomorrow)\b/.test(value)) {
+      text += ' Call before travelling to confirm the schedule for your visit.';
     }
+    add(text, contactLink, mainPhone);
+  }
+  if (/\b(where (are you|is dek450)|location|address|directions|find you|map|lashibi|sakumono|landmark|how (can|do) i get there)\b/.test(value)) {
+    add('Visit us in Klagon, Lashibi, Tema, near Sakumono Police Station at NDC Junction, Cowpea Street (CB69).', directions);
+  }
+  if (/\b(phone|telephone|contact|number|numbers|call|reach you|whatsapp|email)\b/.test(value)) {
+    const numbers = phoneLinks.map((link) => ({ label: link.textContent.trim(), href: link.getAttribute('href') }));
+    add('You can reach our pharmacy team on any of these phone numbers.', ...numbers);
+  }
+  if (/\b(medical suppl(y|ies)|wholesale|bulk|clinic suppl\w*|sourcing)\b/.test(value)) {
+    add('Dek450 Medical Supplies handles sourcing and bulk enquiries for clinics, pharmacies and care providers.', supplyLink, mainPhone);
+  }
+  if (clinical) {
+    add('For advice about symptoms, doses, side effects or whether a medicine is right for you, speak with our pharmacist or your healthcare professional.', mainPhone);
+  }
+  if (prescription) {
+    add('Call the pharmacy team about your prescription or medicine enquiry. They can check availability and tell you what to bring.', mainPhone);
+  }
+  if (/\b(deliver\w*|shipping|payment|pay|mobile money|momo|insurance|nhis|returns?|refunds?)\b/.test(value)) {
+    add('Please call the pharmacy to confirm delivery, payment, insurance or returns arrangements for your request.', mainPhone);
   }
 
-  if (bestMatch) return bestMatch.answer;
-  return 'I can help with products in our gallery, checking today’s availability, our Lashibi location, or medical-supply inquiries. Try asking about one of those, or call 053 380 5134 for help.';
+  const product = findProduct(value) || (/\b(it|its|that one|same one)\b/.test(value) ? lastProduct : null);
+  if (product && !clinical && !prescription) {
+    lastProduct = product;
+    add(product.name + '. ' + product.description, product.link, product.label);
+  }
+  if (availability && !prescription) {
+    add('The catalog shows product information. Call our team to confirm current stock and price' + (product ? ' for ' + product.name : '') + '.', mainPhone);
+  }
+  if (!product && !clinical && !prescription && !availability && /\b(products?|catalog|browse|supplements?|vitamins?|probiotics?|skincare|body care|gummies)\b/.test(value)) {
+    add('Browse the catalog and search by product name or category. It includes skincare, vitamins, probiotics and supplements.', catalogLink);
+  }
+  if (!replies.length) {
+    if (/^(thanks|thank you|ok|okay|cheers)( very much)?$/.test(value)) {
+      add('You’re welcome. Ask another question whenever you’re ready.');
+    } else {
+      add('Try asking about opening hours, directions, prescriptions, or a product by name. For anything else, call our pharmacy team.', catalogLink, mainPhone);
+    }
+  }
+  return { replies, actions: [...actions.values()] };
 }
 
-function addChatMessage(text, kind) {
+function addChatMessage(lines, kind, actions = []) {
   const row = document.createElement('div');
   row.className = 'message-row ' + (kind === 'user' ? 'user-row' : 'assistant-row');
 
   const content = document.createElement('div');
   content.className = 'message-content';
-
   const author = document.createElement('span');
   author.className = 'message-author';
-  author.textContent = kind === 'user' ? 'YOU' : 'DEK450 ASSISTANT';
+  author.textContent = kind === 'user' ? 'You' : 'Dek450 Assistant';
 
   const bubble = document.createElement('div');
   bubble.className = 'chat-bubble ' + (kind === 'user' ? 'user-bubble' : 'assistant-bubble');
-  bubble.textContent = text;
-
-  if (kind !== 'user') {
-    const avatar = document.createElement('span');
-    avatar.className = 'message-avatar';
-    avatar.setAttribute('aria-hidden', 'true');
-    avatar.textContent = '✦';
-    row.append(avatar);
+  for (const line of lines) {
+    const paragraph = document.createElement('p');
+    paragraph.textContent = line;
+    bubble.append(paragraph);
   }
-
+  if (actions.length) {
+    const links = document.createElement('div');
+    links.className = 'chat-actions';
+    for (const action of actions) {
+      const anchor = document.createElement('a');
+      anchor.href = action.href;
+      anchor.textContent = action.label;
+      if (action.href.startsWith('https:')) {
+        anchor.target = '_blank';
+        anchor.rel = 'noopener noreferrer';
+      }
+      if (action.product) {
+        anchor.addEventListener('click', () => {
+          if (action.product.hidden) {
+            catalogSearch.value = '';
+            catalogCategory.value = '';
+            updateCatalog();
+          }
+        });
+      }
+      links.append(anchor);
+    }
+    bubble.append(links);
+  }
   content.append(author, bubble);
   row.append(content);
-  chatMessages.appendChild(row);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
-}
-
-function showTyping() {
-  const row = document.createElement('div');
-  row.className = 'message-row assistant-row typing-row';
-  row.setAttribute('aria-label', 'Dek450 Assistant is preparing a reply');
-
-  const avatar = document.createElement('span');
-  avatar.className = 'message-avatar';
-  avatar.setAttribute('aria-hidden', 'true');
-  avatar.textContent = '✦';
-
-  const content = document.createElement('div');
-  content.className = 'message-content';
-  const author = document.createElement('span');
-  author.className = 'message-author';
-  author.textContent = 'DEK450 ASSISTANT';
-  const bubble = document.createElement('div');
-  bubble.className = 'chat-bubble assistant-bubble typing-bubble';
-  bubble.setAttribute('aria-hidden', 'true');
-  bubble.innerHTML = '<i></i><i></i><i></i>';
-  content.append(author, bubble);
-  row.append(avatar, content);
-  chatMessages.appendChild(row);
-  chatMessages.scrollTop = chatMessages.scrollHeight;
+  chatMessages.append(row);
   return row;
 }
 
 function askDek450(question) {
   const cleanQuestion = question.trim();
-  if (!cleanQuestion) return;
-  addChatMessage(cleanQuestion, 'user');
-  chatInput.value = '';
-  sendButton.disabled = true;
-  const typing = showTyping();
-
-  window.setTimeout(() => {
-    typing.remove();
-    addChatMessage(getDek450Answer(cleanQuestion), 'assistant');
-    sendButton.disabled = false;
+  if (!cleanQuestion) {
     chatInput.focus();
-  }, 420);
+    return;
+  }
+  addChatMessage([cleanQuestion], 'user');
+  const { replies, actions } = getDek450Answer(cleanQuestion);
+  const reply = addChatMessage(replies, 'assistant', actions);
+  chatMessages.scrollTop += reply.getBoundingClientRect().top - chatMessages.getBoundingClientRect().top - 14;
+  chatInput.value = '';
+  chatReset.hidden = false;
 }
 
 chatForm.addEventListener('submit', (event) => {
   event.preventDefault();
   askDek450(chatInput.value);
+  chatInput.focus();
 });
 
 chatPrompts.addEventListener('click', (event) => {
   const button = event.target.closest('button[data-question]');
   if (button) askDek450(button.dataset.question);
+});
+
+chatReset.addEventListener('click', () => {
+  chatMessages.replaceChildren(welcomeMessage.cloneNode(true));
+  chatMessages.scrollTop = 0;
+  chatInput.value = '';
+  lastProduct = null;
+  chatReset.hidden = true;
+  chatInput.focus();
 });
 
 document.querySelectorAll('[data-motion]').forEach((button) => {

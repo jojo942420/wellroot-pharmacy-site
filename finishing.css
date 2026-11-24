@@ -278,3 +278,161 @@ html { scroll-padding-top: 88px; }
 @media (max-width: 650px) {
   .medicine-enquiries { padding-block: 22px; }
 }
+
+/* Pharmacy assistant and posted hours */
+.simple-home .assistant-section { align-items: center; gap: clamp(24px, 5vw, 66px); }
+.simple-home .assistant-intro h2 {
+  margin: 10px 0 12px;
+  font: 750 clamp(38px, 5vw, 66px)/1.05 var(--display);
+  letter-spacing: -.045em;
+}
+.assistant-call {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 8px;
+  color: var(--accent);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.simple-home .pharmacy-chat {
+  min-width: 0;
+  overflow: hidden;
+  border: 1px solid #cbd6c8;
+  border-radius: 22px;
+  background: #fffdf8;
+  box-shadow: 0 18px 48px #173f3121;
+}
+
+.pharmacy-chat .chat-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 15px 18px;
+  background: #193f34;
+  color: #fffaf0;
+}
+.pharmacy-chat .chat-avatar {
+  flex: 0 0 38px;
+  height: 38px;
+  border-radius: 12px;
+  background: #f3e1c5;
+  color: #234a3a;
+  font: 800 21px var(--display);
+}
+.pharmacy-chat .chat-identity { flex: 1; min-width: 0; }
+.pharmacy-chat .chat-identity strong { color: #fffaf0; font: 700 18px var(--display); }
+.pharmacy-chat .chat-identity small { color: #e2ecda; font: 500 13px var(--sans); }
+.chat-reset {
+  min-height: 44px;
+  flex: 0 0 auto;
+  padding: 7px 12px;
+  border: 1px solid #a7b8a8;
+  border-radius: 10px;
+  color: #fffaf0;
+  background: transparent;
+  font: 650 14px var(--sans);
+  cursor: pointer;
+}
+.chat-reset:hover { background: #2f594a; }
+.chat-reset:focus-visible { outline-color: #f1e4c6; }
+
+.pharmacy-chat .chat-messages {
+  height: clamp(210px, 32vh, 325px);
+  min-height: 0;
+  padding: 18px;
+  background: #f4f6ee;
+  overscroll-behavior: contain;
+  scroll-behavior: auto;
+}
+.pharmacy-chat .message-row { display: flex; margin-bottom: 14px; }
+.pharmacy-chat .message-content { min-width: 0; max-width: 95%; }
+.pharmacy-chat .message-author {
+  color: #546b60;
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0;
+}
+.pharmacy-chat .chat-bubble {
+  padding: 11px 14px;
+  border-radius: 14px;
+  font: 500 15px/1.45 var(--sans);
+  overflow-wrap: anywhere;
+}
+.pharmacy-chat .assistant-bubble { color: #244438; background: #fffef9; border: 1px solid #dae3d7; }
+.pharmacy-chat .user-bubble { color: #fffaf0; background: #2e5b4b; border: 1px solid #2e5b4b; }
+.pharmacy-chat .chat-bubble p { margin: 0; }
+.pharmacy-chat .chat-bubble p + p { margin-top: 7px; }
+.chat-actions { display: flex; flex-wrap: wrap; gap: 4px 8px; margin-top: 9px; }
+.chat-actions a {
+  display: inline-flex;
+  min-height: 36px;
+  align-items: center;
+  padding: 5px 9px;
+  border: 1px solid #dcc5b4;
+  border-radius: 8px;
+  background: #fff6ed;
+  color: #713d29;
+  font: 700 13px var(--sans);
+}
+.chat-actions a:hover { text-decoration: underline; text-underline-offset: 3px; }
+
+.pharmacy-chat .chat-prompts { display: flex; flex-wrap: wrap; gap: 7px; padding: 12px 16px; }
+.pharmacy-chat .chat-prompts button {
+  min-height: 44px;
+  padding: 6px 12px;
+  border: 1px solid #bcc9b9;
+  border-radius: 999px;
+  color: #284d3c;
+  background: #f3f6ee;
+  font: 650 13px var(--sans);
+}
+.pharmacy-chat .chat-prompts button:hover { background: #e6eee1; }
+.pharmacy-chat .chat-form { display: flex; gap: 8px; margin: 0 16px; padding: 0; border: 0; background: none; }
+.pharmacy-chat .chat-form input {
+  min-height: 46px;
+  min-width: 0;
+  flex: 1;
+  padding: 9px 12px;
+  border: 1px solid #9aac9a;
+  border-radius: 10px;
+  background: #fff;
+  color: #203d31;
+  font: 500 16px var(--sans);
+}
+.pharmacy-chat .chat-form button {
+  width: auto;
+  min-width: 64px;
+  height: auto;
+  min-height: 46px;
+  padding: 8px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: #fff9ee;
+  font: 700 15px var(--sans);
+}
+.pharmacy-chat .chat-form button:hover { background: var(--accent-dark); }
+.pharmacy-chat .chat-disclaimer { margin: 11px 16px 16px; color: #51675b; font-size: 13px; line-height: 1.35; }
+
+.pharmacy-hours {
+  display: grid;
+  gap: 2px;
+  margin-bottom: 10px;
+  padding: 10px 13px;
+  border-radius: 10px;
+  color: #244438;
+  background: #edf2e7;
+}
+.pharmacy-hours strong { color: #39584a; font-size: 13px; }
+.pharmacy-hours span { font: 750 19px var(--display); }
+.pharmacy-hours small { color: #52665c; font: 600 13px var(--sans); }
+
+@media (max-width: 420px) {
+  .pharmacy-chat .chat-head, .pharmacy-chat .chat-messages { padding-inline: 12px; }
+  .pharmacy-chat .chat-prompts { display: grid; grid-template-columns: 1fr 1fr; padding-inline: 12px; }
+  .pharmacy-chat .chat-prompts button { width: 100%; }
+  .pharmacy-chat .chat-form, .pharmacy-chat .chat-disclaimer { margin-inline: 12px; }
+}
