@@ -218,7 +218,68 @@ body.simple-home,.product-section{background:#f2f0e6}
 @media(max-width:760px){.brand-hero{min-height:570px;background-position:center 43%}}
 @media(max-width:600px){.brand-hero{min-height:540px;background-position:54% center}.hero-summary{background:#f1f2e7c4;padding:9px 12px;border-radius:12px}}
 
-  </style>
+  
+/* Refined Dek450 assistant and medical supply footer */
+.assistant-section{grid-template-columns:.78fr 1.22fr;gap:clamp(34px,6vw,82px);padding-top:92px;padding-bottom:96px;background:linear-gradient(120deg,#eef1e6 0%,#f7f5ed 56%,#e8ede1 100%)}
+.assistant-intro h2{font-size:clamp(44px,5.3vw,66px);letter-spacing:-3.8px;color:#153e36}
+.assistant-intro h2 em{color:#788e56}
+.assistant-intro p{max-width:380px;font-size:13px;line-height:1.8}
+.assistant-promise{display:flex;align-items:center;gap:11px;margin-top:25px;color:#a38b4a}
+.assistant-promise>span:first-child{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:#e5e8d5}
+.assistant-promise strong,.assistant-promise small{display:block}
+.assistant-promise strong{font:700 10px var(--sans);color:#345144}
+.assistant-promise small{font:10px var(--sans);color:#7a867b;margin-top:4px}
+.chat-card{border:1px solid #d8dfd2;border-radius:22px;background:#fcfcf8;box-shadow:0 24px 70px #163c3021;overflow:hidden}
+.chat-head{padding:17px 21px;background:#173f35;color:#f7f5ed;border:0}
+.chat-avatar{width:40px;height:40px;border-radius:14px;background:#e5e9cf;color:#315746;font-size:20px;box-shadow:0 3px 0 #b2bf94}
+.chat-identity strong{font:700 13px var(--display);letter-spacing:-.2px;color:#fff}
+.chat-identity small{font:10px var(--sans);color:#c2d1c4;margin-top:4px}
+.chat-status{display:flex;align-items:center;gap:7px;color:#dbe6d9;font-size:8px;font-weight:700;letter-spacing:.9px}
+.chat-status i{width:7px;height:7px;border-radius:50%;background:#c5d978;box-shadow:0 0 10px #d4e88c}
+.chat-welcome{padding:21px 24px 13px;background:linear-gradient(110deg,#f2f4e9,#faf9f2)}
+.chat-welcome>span{font-size:8px;font-weight:800;letter-spacing:1.6px;color:#81915e}
+.chat-welcome h3{font:600 20px/1.2 var(--display);letter-spacing:-.65px;color:#21483a;margin:8px 0 4px}
+.chat-welcome p{font:11px/1.5 var(--sans);color:#758175;margin:0}
+.chat-messages{height:220px;padding:18px 21px;background:#fafaf6}
+.message-row{display:flex;align-items:flex-start;gap:9px;max-width:100%}
+.message-content{max-width:86%;display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+.user-row{justify-content:flex-end}
+.user-row .message-content{align-items:flex-end}
+.message-avatar{flex:0 0 25px;width:25px;height:25px;border-radius:9px;display:grid;place-items:center;background:#e6ead9;color:#54705a;font-size:13px}
+.message-author{font:700 7px var(--sans);letter-spacing:1px;color:#889286}
+.chat-bubble{max-width:100%;padding:11px 13px;border-radius:4px 14px 14px 14px;font:11px/1.65 var(--sans)}
+.assistant-bubble{background:#edf1e6;color:#40574a}
+.user-bubble{background:#1c4c3c;color:#fff;border-radius:14px 4px 14px 14px}
+.chat-prompts{padding:13px 20px 15px;border-top:1px solid #edf0e7;background:#fcfcf8;gap:8px}
+.chat-prompts button{display:inline-flex;align-items:center;gap:7px;border:1px solid #dce3d4;border-radius:999px;background:#fff;color:#476150;padding:9px 12px;font:600 9px var(--sans);transition:all .18s ease}
+.chat-prompts button span{font-size:12px;color:#9b9a5b}
+.chat-prompts button:hover,.chat-prompts button:focus-visible{background:#edf2e4;border-color:#a9b894;transform:translateY(-1px)}
+.chat-form{align-items:center;margin:0 17px;padding:5px 6px 5px 15px;border:1px solid #d5dfd2;border-radius:13px;background:#fff;box-shadow:0 3px 12px #1f49370a}
+.chat-form:focus-within{border-color:#82976b;box-shadow:0 0 0 3px #cbd9b655}
+.chat-form input{height:39px;font:12px var(--sans);color:#25483a}
+.chat-form input::placeholder{color:#8a938a}
+.chat-form button{width:38px;height:38px;border-radius:11px;background:#d9e39c;color:#244636;display:grid;place-items:center;transition:transform .18s ease,background .18s ease}
+.chat-form button:hover{background:#cfdb82;transform:translateY(-1px)}
+.chat-form button svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.chat-disclaimer{display:flex;align-items:flex-start;gap:6px;margin:11px 19px 16px;font:9px/1.5 var(--sans);color:#7d887c}
+.chat-disclaimer span{color:#9d9e63}
+.typing-bubble{display:flex;align-items:center;gap:4px;min-width:48px}
+.typing-bubble i{width:5px;height:5px;border-radius:50%;background:#92a18a;animation:chatPulse 1s infinite ease-in-out}
+.typing-bubble i:nth-child(2){animation-delay:.15s}.typing-bubble i:nth-child(3){animation-delay:.3s}
+@keyframes chatPulse{0%,60%,100%{opacity:.45;transform:translateY(0)}30%{opacity:1;transform:translateY(-3px)}}
+.supply-section{position:relative;display:grid;grid-template-columns:62px 1fr auto;gap:22px;align-items:center;padding:46px clamp(22px,10vw,150px);background:linear-gradient(110deg,#183f35,#205445 58%,#183d34);color:#f4f4e9;overflow:hidden}
+.supply-section:after{content:"";position:absolute;width:400px;height:400px;right:14%;top:-245px;border:1px solid #dce7b226;border-radius:50%;box-shadow:0 0 0 35px #dce7b20a,0 0 80px #dce7b20d;pointer-events:none}
+.supply-symbol{width:52px;height:52px;border:1px solid #b6c782;border-radius:16px;display:grid;place-items:center;color:#d6e28c;font:300 38px/1 var(--sans);box-shadow:inset 0 0 18px #d6e28c16,0 0 22px #d6e28c18}
+.supply-kicker{font:700 8px var(--sans);letter-spacing:1.7px;color:#d5df9b}
+.supply-copy h2{font:600 clamp(24px,3vw,34px)/1.12 var(--display);letter-spacing:-1px;margin:8px 0;color:#fff}
+.supply-copy p{max-width:590px;margin:0;color:#d2ded3;font:11px/1.7 var(--sans)}
+.supply-audience{display:flex;align-items:center;gap:9px;margin-top:14px;color:#bccbb9;font:700 7px var(--sans);letter-spacing:1.2px}
+.supply-audience i{width:3px;height:3px;background:#d6e28c;border-radius:50%}
+.supply-cta{position:relative;z-index:1;display:inline-flex;align-items:center;gap:23px;padding:14px 17px;border:1px solid #a7b87d;border-radius:9px;color:#eef1df;font:700 10px var(--sans);white-space:nowrap;transition:background .18s ease,transform .18s ease}
+.supply-cta span{color:#e2ea9e;font-size:14px}.supply-cta:hover{background:#ffffff12;transform:translateY(-2px)}
+@media(max-width:760px){.assistant-section{grid-template-columns:1fr;gap:23px;padding-top:62px;padding-bottom:68px}.assistant-intro h2{font-size:45px}.assistant-promise{margin-top:18px}.chat-messages{height:205px}.supply-section{grid-template-columns:48px 1fr;gap:15px;padding:34px 24px}.supply-symbol{width:43px;height:43px;border-radius:13px;font-size:32px}.supply-cta{grid-column:2;justify-self:start;margin-top:2px}.supply-copy h2{font-size:26px}.supply-audience{gap:7px;font-size:6px}}
+@media(max-width:430px){.chat-head{padding:14px}.chat-status{font-size:7px;letter-spacing:.4px}.chat-welcome{padding:18px 17px 12px}.chat-messages{padding:16px 14px}.chat-prompts{padding:12px 13px;gap:6px}.chat-prompts button{padding:8px 9px;font-size:8px}.chat-form{margin:0 12px}.supply-section{padding:31px 20px;grid-template-columns:40px 1fr;gap:12px}.supply-symbol{width:38px;height:38px}.supply-audience{flex-wrap:wrap}.supply-cta{font-size:9px}}
+</style>
 </head>
 <body class="simple-home">
   <header class="site-header">
@@ -255,16 +316,17 @@ body.simple-home,.product-section{background:#f2f0e6}
     </section>
     <section class="about-section" id="about">
       <div class="about-logo"><svg viewBox="0 0 48 48" role="img" aria-label="Dek450 pharmacy logo"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="2"/><path d="M24 11v26M11 24h26" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M12.8 13.2c6.1-2.3 10.8 2.4 10.8 10.8-8.4 0-13.1-4.7-10.8-10.8Zm22.4 0c-6.1-2.3-10.8 2.4-10.8 10.8 8.4 0 13.1-4.7 10.8-10.8Z" fill="currentColor" stroke="none"/></svg></div>
-      <div><span class="section-kicker">A LITTLE MORE CARE</span><h2>Local care.<br><em>Everyday essentials.</em></h2><p>Dek450 Pharmacy Limited supports the Lashibi community with thoughtful service and everyday health products.</p><div class="supply-note"><strong>Medical supplies</strong><span>Our medical supply arm also serves clinics, pharmacies and care providers. Contact us for product sourcing and bulk supply inquiries.</span></div></div>
+      <div><span class="section-kicker">A LITTLE MORE CARE</span><h2>Local care.<br><em>Everyday essentials.</em></h2><p>Dek450 Pharmacy Limited supports the Lashibi community with thoughtful service and everyday health products.</p></div>
     </section>
     <section class="assistant-section section-pad" id="assistant">
-      <div class="assistant-intro"><span class="section-kicker">DEK450 ASSISTANT</span><h2>Questions?<br><em>Ask us here.</em></h2><p>Ask about products, availability, or where to find us. The assistant uses Dek450’s product and store information.</p></div>
-      <div class="chat-card" aria-label="Dek450 product and location assistant">
-        <div class="chat-head"><span class="chat-avatar" aria-hidden="true">✳</span><div><strong>Dek450 Assistant</strong><small>Product &amp; location help</small></div><span class="chat-status">HERE TO HELP</span></div>
-        <div class="chat-messages" id="chatMessages" role="log" aria-live="polite"><div class="chat-bubble assistant-bubble">Hi! Ask me about products in our gallery, current availability, or directions to our Lashibi pharmacy.</div></div>
-        <div class="chat-prompts"><button type="button" data-question="Where is Dek450 Pharmacy?">Location</button><button type="button" data-question="Do you have this product in stock?">Availability</button><button type="button" data-question="What products do you carry?">Products</button></div>
-        <form class="chat-form" id="chatForm"><label class="visually-hidden" for="chatInput">Ask about products or location</label><input id="chatInput" name="question" placeholder="Ask about products or location…" autocomplete="off" required><button type="submit" aria-label="Send message">↑</button></form>
-        <p class="chat-disclaimer">For personal medical advice, speak with our pharmacist. Stock and prices can change.</p>
+      <div class="assistant-intro"><span class="section-kicker">DEK450 ASSISTANT</span><h2>Good answers.<br><em>Close to home.</em></h2><p>Get quick help with products, stock checks, and directions to our Lashibi pharmacy.</p><div class="assistant-promise"><span aria-hidden="true">✦</span><span><strong>Here for everyday questions</strong><small>Clear information from Dek450’s store guide</small></span></div></div>
+      <div class="chat-card" role="region" aria-label="Dek450 product and location assistant">
+        <div class="chat-head"><span class="chat-avatar" aria-hidden="true">✦</span><div class="chat-identity"><strong>Dek450 Assistant</strong><small>Product &amp; location guide</small></div><span class="chat-status"><i></i> READY TO HELP</span></div>
+        <div class="chat-welcome"><span>STORE GUIDE</span><h3>What can I help you find?</h3><p>Ask naturally, or choose a quick question below.</p></div>
+        <div class="chat-messages" id="chatMessages" role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions text"><div class="message-row assistant-row"><span class="message-avatar" aria-hidden="true">✦</span><div class="message-content"><span class="message-author">DEK450 ASSISTANT</span><div class="chat-bubble assistant-bubble">Hello! I can help you explore products, check how to confirm today’s stock, or find our pharmacy.</div></div></div></div>
+        <div class="chat-prompts" aria-label="Suggested questions"><button type="button" data-question="What products do you carry?"><span aria-hidden="true">▦</span> Browse products</button><button type="button" data-question="How do I check product availability?"><span aria-hidden="true">◷</span> Check availability</button><button type="button" data-question="Where is Dek450 Pharmacy?"><span aria-hidden="true">⌖</span> Get directions</button></div>
+        <form class="chat-form" id="chatForm"><label class="visually-hidden" for="chatInput">Ask Dek450 about products or location</label><input id="chatInput" name="question" placeholder="Type your question…" autocomplete="off" required><button type="submit" aria-label="Send message"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="m4 4 17 8-17 8 3-8-3-8Zm3 8h14"/></svg></button></form>
+        <p class="chat-disclaimer"><span aria-hidden="true">ⓘ</span> For personal health advice, please speak with our pharmacist. Availability may change.</p>
       </div>
     </section>
     <section class="contact-section section-pad" id="contact">
@@ -279,6 +341,11 @@ body.simple-home,.product-section{background:#f2f0e6}
       </div>
     </section>
   </main>
+  <section class="supply-section" id="medical-supplies" aria-labelledby="supply-title">
+    <div class="supply-symbol" aria-hidden="true">+</div>
+    <div class="supply-copy"><span class="supply-kicker">DEK450 MEDICAL SUPPLIES</span><h2 id="supply-title">Supporting the people who care.</h2><p>Our medical supply business serves clinics, pharmacies, and care providers with product sourcing and bulk supply inquiries.</p><div class="supply-audience"><span>CLINICS</span><i></i><span>PHARMACIES</span><i></i><span>CARE PROVIDERS</span></div></div>
+    <a class="supply-cta" href="tel:+233533805134">Discuss a supply order <span aria-hidden="true">↗</span></a>
+  </section>
   <footer class="simple-footer"><a class="brand footer-brand" href="#top"><span class="brand-mark"><svg viewBox="0 0 48 48" role="img" aria-label="Dek450 pharmacy logo"><circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="2"/><path d="M24 11v26M11 24h26" stroke="currentColor" stroke-width="3" stroke-linecap="round"/><path d="M12.8 13.2c6.1-2.3 10.8 2.4 10.8 10.8-8.4 0-13.1-4.7-10.8-10.8Zm22.4 0c-6.1-2.3-10.8 2.4-10.8 10.8 8.4 0 13.1-4.7 10.8-10.8Z" fill="currentColor" stroke="none"/></svg></span><span>Dek450<span class="brand-sub">PHARMACY LIMITED</span></span></a><p>Thoughtful care for everyday living.</p><small>© <span id="year"></span> Dek450 Pharmacy Limited</small></footer>
   <script src="script.js?v=dek450-assistant-20261124"></script>
 </body>
