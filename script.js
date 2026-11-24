@@ -190,3 +190,37 @@ chatPrompts.addEventListener('click', (event) => {
   const button = event.target.closest('button[data-question]');
   if (button) askDek450(button.dataset.question);
 });
+
+document.querySelectorAll('[data-motion]').forEach((button) => {
+  const preview = button.closest('figure').querySelector('.motion-preview');
+  const still = preview.getAttribute('src');
+
+  button.addEventListener('click', () => {
+    if (button.getAttribute('aria-disabled') === 'true') return;
+
+    button.setAttribute('aria-disabled', 'true');
+    button.textContent = 'Loading preview…';
+
+    const finish = (message) => {
+      preview.src = still;
+      button.removeAttribute('aria-disabled');
+      button.textContent = message;
+    };
+
+    const reset = new AbortController();
+    preview.addEventListener('load', () => {
+      reset.abort();
+      button.textContent = 'Playing preview…';
+      window.setTimeout(() => finish('Replay preview'), 2100);
+    }, { once: true, signal: reset.signal });
+
+    preview.addEventListener('error', () => {
+      reset.abort();
+      finish('Retry preview');
+    }, { once: true, signal: reset.signal });
+
+    const source = new URL(button.dataset.motion, document.baseURI);
+    source.searchParams.set('play', String(Date.now()));
+    preview.src = source.href;
+  });
+});
