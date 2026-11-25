@@ -42,32 +42,47 @@ const catalogCategory = document.querySelector('#catalog-category');
 const catalogStatus = document.querySelector('#catalog-status');
 const catalogReset = document.querySelector('#catalog-reset');
 const catalogEmpty = document.querySelector('#catalog-empty');
+const catalogShowAll = document.querySelector('#catalog-show-all');
+const featuredProductCount = 12;
+let fullCatalog = false;
 
 function normalizeSearch(value) {
   return value.toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f’']/g, '')
     .replace(/[^a-z0-9]+/g, ' ').trim();
 }
 
-const catalogProducts = [...document.querySelectorAll('#product-grid .product-tile')].map((card) => ({
-  card,
-  category: card.dataset.category,
-  text: normalizeSearch([...card.querySelector('.product-tile-copy').children].map((field) => field.textContent).join(' ') + ' ' + card.querySelector('img').alt)
-}));
+const catalogProducts = [...document.querySelectorAll('#product-grid .product-tile')].map((card) => {
+  const name = card.querySelector('h3').textContent;
+  const nameKey = normalizeSearch(name);
+  if (!card.id) card.id = 'product-' + nameKey.replaceAll(' ', '-');
+  return {
+    card, name, nameKey,
+    category: card.dataset.category,
+    text: normalizeSearch([...card.querySelector('.product-tile-copy').children].map((field) => field.textContent).join(' ') + ' ' + card.querySelector('img').alt)
+  };
+});
 
 function updateCatalog() {
   const terms = normalizeSearch(catalogSearch.value).split(' ').filter(Boolean);
   const category = catalogCategory.value;
-  let visible = 0;
+  const filtersActive = Boolean(terms.length || category);
+  const limit = fullCatalog || filtersActive ? Infinity : featuredProductCount;
+  let matchesFound = 0;
 
   for (const product of catalogProducts) {
     const matches = (!category || category === product.category) && terms.every((term) => product.text.includes(term));
-    product.card.hidden = !matches;
-    if (matches) visible += 1;
+    if (matches) matchesFound += 1;
+    product.card.hidden = !matches || matchesFound > limit;
   }
 
-  catalogStatus.textContent = visible === 1 ? '1 product' : `${visible} products`;
-  catalogEmpty.hidden = visible !== 0;
+  const showAllAvailable = matchesFound > limit;
+  catalogStatus.textContent = showAllAvailable
+    ? `Showing ${limit} of ${matchesFound} products`
+    : matchesFound === 1 ? '1 product' : `${matchesFound} products`;
+  catalogEmpty.hidden = matchesFound !== 0;
   catalogReset.hidden = !catalogSearch.value && !category;
+  catalogShowAll.hidden = !showAllAvailable;
+  if (showAllAvailable) catalogShowAll.textContent = `Show all ${matchesFound} products`;
 }
 
 catalogSearch.addEventListener('input', updateCatalog);
@@ -78,8 +93,35 @@ catalogReset.addEventListener('click', () => {
   catalogSearch.focus();
   updateCatalog();
 });
+catalogShowAll.addEventListener('click', () => {
+  const firstHidden = catalogProducts.find(({ card }) => card.hidden)?.card;
+  fullCatalog = true;
+  updateCatalog();
+  if (firstHidden) {
+    firstHidden.tabIndex = -1;
+    firstHidden.focus();
+  }
+});
+
+function revealProduct(card) {
+  if (!card.hidden) return;
+  catalogSearch.value = '';
+  catalogCategory.value = '';
+  fullCatalog = true;
+  updateCatalog();
+}
+
+function revealLinkedProduct() {
+  const card = document.getElementById(window.location.hash.slice(1));
+  if (!card?.matches('#product-grid .product-tile')) return;
+  revealProduct(card);
+  requestAnimationFrame(() => card.scrollIntoView({ block: 'start' }));
+}
+
 updateCatalog();
 catalog.hidden = false;
+revealLinkedProduct();
+window.addEventListener('hashchange', revealLinkedProduct);
 
 document.querySelector('#year').textContent = new Date().getFullYear();
 
@@ -115,13 +157,10 @@ const catalogLink = { label: 'Browse products', href: '#products' };
 const supplyLink = { label: 'Medical supplies enquiries', href: '#medical-supplies' };
 const contactLink = { label: 'Hours and contact', href: '#contact' };
 
-const chatProducts = catalogProducts.map(({ card, category }) => {
-  const name = card.querySelector('h3').textContent;
+const chatProducts = catalogProducts.map(({ card, category, name, nameKey }) => {
   const description = card.querySelector('.product-tile-copy p').textContent;
   const alt = card.querySelector('img').alt;
   const label = card.querySelector('.product-detail-link');
-  const nameKey = normalizeSearch(name);
-  if (!card.id) card.id = 'product-' + nameKey.replaceAll(' ', '-');
   return {
     name, description, category, nameKey,
     alias: normalizeSearch(alt),
@@ -250,13 +289,7 @@ function addChatMessage(lines, kind, actions = []) {
         anchor.rel = 'noopener noreferrer';
       }
       if (action.product) {
-        anchor.addEventListener('click', () => {
-          if (action.product.hidden) {
-            catalogSearch.value = '';
-            catalogCategory.value = '';
-            updateCatalog();
-          }
-        });
+        anchor.addEventListener('click', () => revealProduct(action.product));
       }
       links.append(anchor);
     }
@@ -348,23 +381,29 @@ chatReset.addEventListener('click', () => {
 document.querySelectorAll('[data-motion]').forEach((button) => {
   const preview = button.closest('figure').querySelector('.motion-preview');
   const still = preview.getAttribute('src');
+  const subject = button.closest('figcaption').querySelector('strong').textContent.toLowerCase();
+
+  function setPreviewLabel(label) {
+    button.textContent = label;
+    button.setAttribute('aria-label', `${label} of ${subject}`);
+  }
 
   button.addEventListener('click', () => {
     if (button.getAttribute('aria-disabled') === 'true') return;
 
     button.setAttribute('aria-disabled', 'true');
-    button.textContent = 'Loading preview…';
+    setPreviewLabel('Loading preview…');
 
     const finish = (message) => {
       preview.src = still;
       button.removeAttribute('aria-disabled');
-      button.textContent = message;
+      setPreviewLabel(message);
     };
 
     const reset = new AbortController();
     preview.addEventListener('load', () => {
       reset.abort();
-      button.textContent = 'Playing preview…';
+      setPreviewLabel('Playing preview…');
       window.setTimeout(() => finish('Replay preview'), 2100);
     }, { once: true, signal: reset.signal });
 
