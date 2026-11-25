@@ -542,3 +542,26 @@ html { scroll-padding-top: 88px; }
 .simple-home .contact-heading { grid-column: 1 / -1; }
 .simple-home .contact-section .address-card { max-width: none; margin-top: 0; }
 .simple-home .contact-section .contact-card { width: 100%; }
+
+.contact-methods { display: grid; gap: 8px; margin-top: 4px; }
+.simple-home .contact-card .contact-method {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-height: 60px;
+  border: 1px solid #d6dfd3;
+  border-radius: 12px;
+  padding: 8px 12px;
+  background: #fffdf8;
+  color: #244438;
+}
+.simple-home .contact-card .contact-whatsapp { background: #eaf5ec; border-color: #c0dac6; }
+.simple-home .contact-card .contact-method:hover { background: #f1efe4; }
+.simple-home .contact-card .contact-whatsapp:hover { background: #dcefe0; }
+.contact-icon { display: inline-block; width: 18px; height: 18px; flex: 0 0 18px; }
+.contact-method .contact-icon { width: 21px; height: 21px; flex-basis: 21px; color: #397454; }
+.contact-method-copy { display: grid; gap: 1px; }
+.contact-method-copy > span { font: 600 13px/1.15 var(--sans); color: #456254; }
+.contact-method-copy strong { font: 750 17px/1.2 var(--display); }
+.simple-home .assistant-call .contact-icon { width: 17px; height: 17px; flex-basis: 17px; }
+.simple-home .supply-cta .contact-icon { vertical-align: -4px; margin-right: 4px; }
