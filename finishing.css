@@ -436,3 +436,104 @@ html { scroll-padding-top: 88px; }
   .pharmacy-chat .chat-prompts button { width: 100%; }
   .pharmacy-chat .chat-form, .pharmacy-chat .chat-disclaimer { margin-inline: 12px; }
 }
+
+/* Visit card */
+.simple-home .contact-section {
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  align-items: end;
+  gap: clamp(20px, 4vw, 56px);
+}
+.simple-home .contact-intro { min-width: 0; }
+.simple-home .address-card {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  margin-top: 26px;
+  padding: 0;
+  border: 1px solid #d3ddcf;
+  border-radius: 24px;
+  background: #fffcf5;
+  box-shadow: 0 0 0 5px #e8eee4, 0 20px 46px #1d493324;
+}
+.address-map {
+  position: relative;
+  background: #dbe7d8;
+  border-bottom: 1px solid #cedbca;
+}
+.address-map iframe {
+  display: block;
+  width: 100%;
+  height: clamp(235px, 27vw, 330px);
+  border: 0;
+}
+.address-map iframe:focus-visible { outline-offset: -4px; }
+
+.simple-home .address-copy { padding: 24px; }
+.simple-home .address-copy .address-label {
+  display: block;
+  color: var(--accent);
+  font-size: 12px;
+  font-weight: 750;
+  letter-spacing: .11em;
+}
+.address-copy h3 {
+  margin: 4px 0 5px;
+  color: #254b3a;
+  font: 750 clamp(22px, 2.75vw, 31px)/1.14 var(--display);
+  letter-spacing: -.025em;
+}
+.address-copy address {
+  color: #40574b;
+  font-size: 16px;
+  font-style: normal;
+  line-height: 1.5;
+}
+.address-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+  margin-top: 16px;
+}
+.simple-home .address-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  font-size: 14px;
+  font-weight: 700;
+}
+.simple-home .address-route { background: var(--accent); color: #fff9ee; }
+.simple-home .address-route:hover { background: var(--accent-dark); }
+.simple-home .address-satellite { color: var(--accent-dark); border-color: #c99980; background: #fff5eb; }
+.simple-home .address-satellite:hover { background: var(--accent-tint); }
+.simple-home .address-copy .address-pin {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 9px;
+  margin: 15px 0 0;
+  padding-top: 12px;
+  border-top: 1px solid #e0e6db;
+  color: #40574b;
+  font-size: 13px;
+}
+.address-pin span { font-variant-numeric: tabular-nums; }
+
+@media (max-width: 760px) {
+  .simple-home .contact-section { grid-template-columns: minmax(0, 1fr); }
+  .simple-home .address-copy { padding: 17px; }
+}
+
+.simple-home .address-search { color: var(--accent-dark); border-color: #c99980; background: #fff5eb; }
+.simple-home .address-search:hover { background: var(--accent-tint); }
+.simple-home .address-actions .address-satellite {
+  padding-inline: 5px;
+  border-color: transparent;
+  background: transparent;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

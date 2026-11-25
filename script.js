@@ -92,7 +92,8 @@ const welcomeMessage = chatMessages.firstElementChild.cloneNode(true);
 const hours = [...document.querySelectorAll('.pharmacy-hours time')].map((time) => time.textContent);
 const phoneLinks = [...document.querySelectorAll('.contact-card > a[href^="tel:"]')];
 const mainPhone = { label: 'Call ' + phoneLinks[0].textContent.trim(), href: phoneLinks[0].getAttribute('href') };
-const directions = { label: 'Open in Google Maps', href: document.querySelector('.address-copy a').href };
+const directions = { label: 'Directions to Sakumono Police Station', href: document.querySelector('.address-route').href };
+const pharmacyMapSearch = { label: 'Find Dek450 in Google Maps', href: document.querySelector('.address-search').href };
 const catalogLink = { label: 'Browse products', href: '#products' };
 const supplyLink = { label: 'Medical supplies enquiries', href: '#medical-supplies' };
 const contactLink = { label: 'Hours and contact', href: '#contact' };
@@ -157,7 +158,7 @@ function getDek450Answer(question) {
     add(text, contactLink, mainPhone);
   }
   if (/\b(where (are you|is dek450)|location|address|directions|find you|map|lashibi|sakumono|landmark|how (can|do) i get there)\b/.test(value)) {
-    add('Visit us in Klagon, Lashibi, Tema, near Sakumono Police Station at NDC Junction, Cowpea Street (CB69).', directions);
+    add('Visit us in Klagon, Lashibi, Tema, near Sakumono Police Station at NDC Junction, Cowpea Street (CB69). The directions link uses Sakumono Police Station as the nearby landmark.', directions, pharmacyMapSearch);
   }
   if (/\b(phone|telephone|contact|number|numbers|call|reach you|whatsapp|email)\b/.test(value)) {
     const numbers = phoneLinks.map((link) => ({ label: link.textContent.trim(), href: link.getAttribute('href') }));
