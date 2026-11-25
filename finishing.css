@@ -1003,3 +1003,45 @@ html { scroll-padding-top: 88px; }
     transition: none;
   }
 }
+
+.branch-locations {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.simple-home .branch-card {
+  min-width: 0;
+}
+
+.branch-card .address-map iframe {
+  height: clamp(185px, 17vw, 235px);
+}
+
+.simple-home .branch-card .address-copy {
+  padding: 17px;
+}
+
+.branch-card .address-copy h3 {
+  font-size: clamp(21px, 2.1vw, 27px);
+}
+
+.branch-card .address-copy address {
+  font-size: 15px;
+}
+
+.branch-card .address-copy .branch-pin-note {
+  margin: 10px 0 0;
+  color: #52665a;
+  font-size: 13px;
+}
+
+.branch-card .address-actions {
+  margin-top: 11px;
+}
+
+@media (min-width: 801px) and (max-width: 1100px), (max-width: 590px) {
+  .branch-locations {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

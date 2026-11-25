@@ -99,8 +99,18 @@ function contactAction(link, channel) {
 const callActions = [...document.querySelectorAll('.contact-phone')].map((link) => contactAction(link, 'Call'));
 const mainPhone = callActions[0];
 const whatsapp = contactAction(document.querySelector('.contact-whatsapp'), 'WhatsApp');
-const directions = { label: 'Directions to Sakumono Police Station', href: document.querySelector('.address-route').href };
-const pharmacyMapSearch = { label: 'Find Dek450 in Google Maps', href: document.querySelector('.address-search').href };
+const branchLocations = [
+  {
+    match: /\b(klagon|lashibi|tema|cowpea|ndc junction)\b/,
+    address: 'Klagon branch: NDC Junction, Cowpea Street, off the Lashibi–Klagon Road, Klagon, Tema.',
+    map: { label: 'Open Klagon area map', href: document.querySelector('#branch-klagon .address-route').href }
+  },
+  {
+    match: /\b(tamale|karmina|kamina|barracks)\b/,
+    address: 'Tamale branch: just around Karmina Barracks, Tamale, Northern Region.',
+    map: { label: 'Open Tamale area map', href: document.querySelector('#branch-tamale .address-route').href }
+  }
+];
 const catalogLink = { label: 'Browse products', href: '#products' };
 const supplyLink = { label: 'Medical supplies enquiries', href: '#medical-supplies' };
 const contactLink = { label: 'Hours and contact', href: '#contact' };
@@ -164,8 +174,11 @@ function getDek450Answer(question) {
     }
     add(text, contactLink, mainPhone);
   }
-  if (/\b(where (are you|is dek450)|location|address|directions|find you|map|lashibi|sakumono|karmina|barracks|landmark|how (can|do) i get there)\b/.test(value)) {
-    add('Visit us at NDC Junction, Cowpea Street (CB69), Klagon, Lashibi, Tema, just around Karmina Barracks. The directions link uses nearby Sakumono Police Station as the map landmark.', directions, pharmacyMapSearch);
+  const matchingBranches = branchLocations.filter((branch) => branch.match.test(value));
+  if (matchingBranches.length || /\b(where (are you|is dek450)|locations?|addresses?|branches?|directions|find you|map|landmark|how (can|do) i get there)\b/.test(value)) {
+    const locations = matchingBranches.length ? matchingBranches : branchLocations;
+    for (const branch of locations) add(branch.address, branch.map);
+    add('Map markers show the nearby street or landmark. Call the pharmacy for help finding the storefront.', mainPhone);
   }
   if (/\b(whatsapp|whats app)\b/.test(value)) {
     add('You can message Dek450 Pharmacy on WhatsApp.', whatsapp);
