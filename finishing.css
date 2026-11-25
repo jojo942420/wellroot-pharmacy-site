@@ -842,3 +842,164 @@ html { scroll-padding-top: 88px; }
     filter: none;
   }
 }
+
+.simple-home .contact-section .contact-card-3d {
+  position: relative;
+  padding: clamp(20px, 3.3vw, 35px);
+  border: 1px solid #456b4e;
+  border-radius: 27px;
+  background: radial-gradient(ellipse at 98% 2%, #64794c 0%, transparent 52%),
+    linear-gradient(145deg, #2e5b47, #15392f 72%);
+  box-shadow: inset 0 2px 1px #fff4, 0 6px 0 #102b22,
+    0 16px 31px #26463242;
+}
+
+.contact-card-3d h3 {
+  margin-bottom: 7px;
+  color: #fff4d9;
+  font-size: clamp(26px, 3vw, 38px);
+  line-height: 1.08;
+  letter-spacing: -.04em;
+  text-shadow: 0 2px 0 #142c21, 0 5px 12px #132f24;
+}
+
+.contact-card-3d > p {
+  margin-bottom: 17px;
+  color: #f2f4e5;
+  font-size: 15px;
+  line-height: 1.45;
+}
+
+.contact-card-3d .pharmacy-hours,
+.simple-home .contact-card-3d .contact-method {
+  display: grid;
+  grid-template-columns: 48px minmax(0, 1fr);
+  gap: 12px;
+  align-items: center;
+  min-height: 64px;
+  padding: 8px 11px;
+  border-width: 1px;
+  border-style: solid;
+  border-radius: 16px;
+  box-shadow: inset 0 1px 1px #fffc, 0 3px 0 var(--contact-edge),
+    0 6px 10px #102d2440;
+}
+
+.contact-card-3d .pharmacy-hours {
+  --contact-edge: #b8884d;
+  margin-bottom: 15px;
+  border-color: #e5c58d;
+  background: linear-gradient(155deg, #fff7e3, #eed4a6);
+  color: #4c351f;
+}
+
+.contact-card-3d .pharmacy-hours strong,
+.contact-card-3d .pharmacy-hours small {
+  color: #63462c;
+}
+
+.contact-hours-copy {
+  display: grid;
+  gap: 2px;
+}
+
+.contact-card-3d .pharmacy-hours span {
+  font-size: clamp(16px, 2vw, 21px);
+  line-height: 1.16;
+}
+
+.contact-card-3d .pharmacy-hours time {
+  white-space: nowrap;
+}
+
+.contact-card-3d .pharmacy-hours small {
+  display: inline-block;
+  margin-left: .2em;
+}
+
+.contact-card-3d .contact-methods {
+  gap: 11px;
+  margin-top: 0;
+}
+
+.simple-home .contact-card-3d .contact-method {
+  --contact-surface: linear-gradient(155deg, #f2f9ff, #dae8f0);
+  --contact-edge: #7896aa;
+  --contact-rim: #cadce6;
+  position: relative;
+  padding-right: 35px;
+  border-color: var(--contact-rim);
+  background: var(--contact-surface);
+  color: #233940;
+  text-decoration: none;
+  transition: transform 150ms ease, box-shadow 150ms ease;
+}
+
+.simple-home .contact-card-3d .contact-whatsapp {
+  --contact-surface: linear-gradient(155deg, #f0fff4, #d5efdb);
+  --contact-edge: #72a885;
+  --contact-rim: #b7dbc5;
+}
+
+.simple-home .contact-card-3d .contact-method:last-child {
+  --contact-surface: linear-gradient(155deg, #faf4ff, #eae2f5);
+  --contact-edge: #a189b3;
+  --contact-rim: #ddcde9;
+}
+
+.simple-home .contact-card-3d .contact-method:hover {
+  transform: translateY(-2px);
+  background: var(--contact-surface);
+  box-shadow: inset 0 1px 1px #fffc, 0 5px 0 var(--contact-edge), 0 8px 16px #102d244b;
+}
+
+.simple-home .contact-card-3d .contact-method:active {
+  transform: translateY(2px);
+  box-shadow: inset 0 1px 1px #fffc, 0 1px 0 var(--contact-edge);
+}
+
+.simple-home .contact-card-3d .contact-method::after {
+  content: "↗" / "";
+  position: absolute;
+  right: 13px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #45615d;
+  font-size: 16px;
+  font-weight: 750;
+}
+
+.simple-home .contact-card-3d .contact-method:focus-visible {
+  outline-color: #ffe7a8;
+}
+
+.contact-card-3d .contact-icon-3d {
+  display: block;
+  width: 48px;
+  height: 48px;
+  object-fit: contain;
+}
+
+.contact-card-3d .contact-method-copy strong {
+  font-size: clamp(17px, 2vw, 21px);
+  white-space: nowrap;
+}
+
+@media (max-width: 430px) {
+  .contact-card-3d .pharmacy-hours,
+  .simple-home .contact-card-3d .contact-method {
+    grid-template-columns: 39px minmax(0, 1fr);
+    gap: 8px;
+  }
+
+  .contact-card-3d .contact-icon-3d {
+    width: 39px;
+    height: 39px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .simple-home .contact-card-3d .contact-method {
+    transition: none;
+  }
+}
