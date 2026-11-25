@@ -18,3 +18,6 @@
 - [APGMA Lumbar Cold Compress Gel](https://beauty-laand.com/RvgyyKX)
 - [SP-6 Brightening+ Toothpaste](https://shopee.com.br/Pasta-De-Dentes-Probi%C3%B3tica-Clareadora-SP-6-120g-Elimina-O-Mau-H%C3%A1lito-Clareia-E-Remove-O-Amarelamento-Dos-Dentes-i.361974617.52100728084)
 - [Loris Parfum Reed Diffusers](https://lorisparfum.co.uk/products/strawberry-garden-reed-diffuser-120-ml)
+
+- Oral Complete · 60 capsules — AI-generated shelf display based on the pharmacy’s supplied product photo.
+- LINEONE D3 + K2 Gummies — AI-generated shelf display based on the pharmacy’s supplied product photo.
