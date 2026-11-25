@@ -21,3 +21,5 @@
 
 - Oral Complete · 60 capsules — AI-generated shelf display based on the pharmacy’s supplied product photo.
 - LINEONE D3 + K2 Gummies — AI-generated shelf display based on the pharmacy’s supplied product photo.
+
+The catalog shelf displays are AI-edited from the source product images. Original product and label images are retained in their existing locations.
