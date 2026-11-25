@@ -565,3 +565,11 @@ html { scroll-padding-top: 88px; }
 .contact-method-copy strong { font: 750 17px/1.2 var(--display); }
 .simple-home .assistant-call .contact-icon { width: 17px; height: 17px; flex-basis: 17px; }
 .simple-home .supply-cta .contact-icon { vertical-align: -4px; margin-right: 4px; }
+
+.simple-home .product-section .product-grid .product-tile,
+.simple-home .product-section .product-grid .product-tile:hover {
+  border-color: transparent;
+}
+.simple-home .product-section .product-grid .product-tile:hover {
+  box-shadow: 0 16px 32px #25493624;
+}
