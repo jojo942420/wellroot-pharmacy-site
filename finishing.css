@@ -692,3 +692,151 @@ html { scroll-padding-top: 88px; }
     display: none;
   }
 }
+
+.simple-home .brand-hero.hero-product-scene {
+  min-height: clamp(500px, 45vw, 640px);
+  grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr);
+  gap: clamp(10px, 3vw, 52px);
+  align-items: center;
+  padding: clamp(50px, 6vw, 90px) var(--page-gutter);
+  background: linear-gradient(90deg, #102e25f0 0%, #112f26b5 48%, #15352b24 100%),
+    #102e25 url("assets/campaign/dek450-forest-studio.webp") center bottom / cover no-repeat;
+}
+
+.simple-home .hero-product-scene .hero-inner {
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+}
+
+.simple-home .hero-product-scene .hero-logo {
+  display: grid;
+  width: 52px;
+  height: 52px;
+  margin: 0 0 18px;
+}
+
+.simple-home .hero-product-scene .hero-kicker {
+  color: #fbebc8;
+  font-size: 12px;
+  line-height: 1.4;
+  letter-spacing: .11em;
+}
+
+.simple-home .hero-product-scene .hero-kicker span {
+  flex: 0 0 7px;
+}
+
+.simple-home .hero-product-scene .brand-3d {
+  margin: 17px 0 20px;
+}
+
+.simple-home .hero-product-scene .brand-3d > span {
+  padding: 0 .1em .045em 0;
+  font-size: clamp(86px, 12.3vw, 190px);
+  font-weight: 800;
+  line-height: .95;
+  letter-spacing: -.09em;
+  color: #fff4d5;
+  background: linear-gradient(176deg, #fffef4 8%, #fbefd3 54%, #f1dcae 94%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 1px 0 #f4dc9f)
+    drop-shadow(1px 2px 0 #bea065)
+    drop-shadow(1px 2px 0 #987742)
+    drop-shadow(1px 3px 0 #6f552f)
+    drop-shadow(2px 8px 12px #091c15d9);
+}
+
+.simple-home .hero-product-scene .brand-3d small {
+  margin-top: 13px;
+  padding-left: .08em;
+  color: #fff2d5;
+  font-size: clamp(17px, 2.1vw, 30px);
+  letter-spacing: .21em;
+  line-height: 1.15;
+  text-shadow: 0 2px #8f6d3d, 1px 4px 9px #081b14d9;
+}
+
+.simple-home .hero-product-scene .hero-summary {
+  max-width: 34ch;
+  margin: 0 0 24px;
+  color: #f5f4e9;
+  font-size: clamp(16px, 1.45vw, 20px);
+  line-height: 1.5;
+  text-shadow: none;
+}
+
+.hero-featured-product {
+  position: relative;
+  z-index: 1;
+  justify-self: center;
+  margin-top: clamp(25px, 6vw, 82px);
+}
+
+.hero-featured-product img {
+  display: block;
+  height: clamp(126px, 15.1vw, 214px);
+  width: auto;
+  object-fit: contain;
+  filter: drop-shadow(8px 16px 15px #071f17a8);
+}
+
+@media (max-width: 680px) {
+  .simple-home .brand-hero.hero-product-scene {
+    min-height: 0;
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+    padding-block: 36px 50px;
+    background-position: 64% center;
+  }
+
+  .simple-home .hero-product-scene .hero-logo {
+    width: 44px;
+    height: 44px;
+    margin-bottom: 15px;
+  }
+
+  .simple-home .hero-product-scene .hero-kicker {
+    max-width: calc(100% - 92px);
+    min-height: 34px;
+    font-size: 10px;
+  }
+
+  .simple-home .hero-product-scene .brand-3d {
+    margin-top: 21px;
+  }
+
+  .simple-home .hero-product-scene .brand-3d > span {
+    font-size: clamp(72px, 18.8vw, 116px);
+    filter: drop-shadow(0 1px 0 #f4dc9f)
+      drop-shadow(1px 2px 0 #b3945b)
+      drop-shadow(1px 2px 0 #725731)
+      drop-shadow(2px 5px 9px #091c15d9);
+  }
+
+  .simple-home .hero-product-scene .brand-3d small {
+    font-size: clamp(16px, 4.1vw, 22px);
+    letter-spacing: .18em;
+  }
+
+  .hero-featured-product {
+    position: absolute;
+    top: 26px;
+    right: var(--page-gutter);
+    margin: 0;
+  }
+
+  .hero-featured-product img {
+    height: clamp(86px, 22vw, 109px);
+    filter: drop-shadow(4px 8px 8px #071f17a8);
+  }
+}
+
+@media (forced-colors: active) {
+  .simple-home .hero-product-scene .brand-3d > span {
+    background: none;
+    -webkit-text-fill-color: CanvasText;
+    filter: none;
+  }
+}
