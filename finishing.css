@@ -772,6 +772,7 @@ html { scroll-padding-top: 88px; }
   z-index: 1;
   justify-self: center;
   margin-top: clamp(25px, 6vw, 82px);
+  transform: translateY(clamp(30px, 4.3vw, 62px));
 }
 
 .hero-featured-product img {
@@ -825,6 +826,7 @@ html { scroll-padding-top: 88px; }
     top: 26px;
     right: var(--page-gutter);
     margin: 0;
+    transform: none;
   }
 
   .hero-featured-product img {
