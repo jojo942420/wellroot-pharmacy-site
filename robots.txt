@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dek450pharm.com/sitemap.xml
