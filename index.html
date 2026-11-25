@@ -281,7 +281,7 @@ body.simple-home,.product-section{background:#f2f0e6}
 @media(max-width:760px){.assistant-section{grid-template-columns:1fr;gap:23px;padding-top:62px;padding-bottom:68px}.assistant-intro h2{font-size:45px}.assistant-promise{margin-top:18px}.chat-messages{height:205px}.supply-section{grid-template-columns:48px 1fr;gap:15px;padding:34px 24px}.supply-symbol{width:43px;height:43px;border-radius:13px;font-size:32px}.supply-cta{grid-column:2;justify-self:start;margin-top:2px}.supply-copy h2{font-size:26px}.supply-audience{gap:7px;font-size:6px}}
 @media(max-width:430px){.chat-head{padding:14px}.chat-status{font-size:7px;letter-spacing:.4px}.chat-welcome{padding:18px 17px 12px}.chat-messages{padding:16px 14px}.chat-prompts{padding:12px 13px;gap:6px}.chat-prompts button{padding:8px 9px;font-size:8px}.chat-form{margin:0 12px}.supply-section{padding:31px 20px;grid-template-columns:40px 1fr;gap:12px}.supply-symbol{width:38px;height:38px}.supply-audience{flex-wrap:wrap}.supply-cta{font-size:9px}}
 </style>
-  <link rel="stylesheet" href="finishing.css?v=9">
+  <link rel="stylesheet" href="finishing.css?v=10">
 </head>
 <body class="simple-home">
   <a class="skip-link" href="#top">Skip to main content</a>
@@ -414,10 +414,17 @@ body.simple-home,.product-section{background:#f2f0e6}
       </div>
       <div class="chat-card pharmacy-chat" role="region" aria-labelledby="pharmacy-chat-title">
         <header class="chat-head">
-          <span class="chat-avatar" aria-hidden="true">D</span>
-          <div class="chat-identity"><strong id="pharmacy-chat-title">Dek450 Assistant</strong><small>Pharmacy information guide</small></div>
+          <div class="chat-identity"><strong id="pharmacy-chat-title">Dek450 Assistant</strong><small>Virtual pharmacy guide</small></div>
           <button class="chat-reset" id="chatReset" type="button" hidden>Clear chat</button>
         </header>
+        <div class="pharmacist-portrait" id="pharmacistPortrait" data-state="ready">
+          <div class="pharmacist-portrait-images" aria-hidden="true">
+            <img src="assets/assistant/pharmacist.webp" width="720" height="480" alt="" loading="lazy" decoding="async">
+            <img class="pharmacist-blink-pose" src="assets/assistant/pharmacist-blink.webp" width="720" height="480" alt="" loading="lazy" decoding="async">
+            <img class="pharmacist-reply-pose" src="assets/assistant/pharmacist-reply.webp" width="720" height="480" alt="" loading="lazy" decoding="async">
+          </div>
+          <span class="pharmacist-status" id="pharmacistStatus">Ready for your question</span>
+        </div>
         <div class="chat-messages" id="chatMessages" role="log" aria-label="Conversation" aria-live="polite" aria-relevant="additions">
           <div class="message-row assistant-row"><div class="message-content"><span class="message-author">Dek450 Assistant</span><div class="chat-bubble assistant-bubble">Hello! Ask me about opening hours, directions, prescriptions, or a product by name.</div></div></div>
         </div>
@@ -445,7 +452,7 @@ body.simple-home,.product-section{background:#f2f0e6}
           <div class="address-copy">
             <span class="address-label">VISIT DEK450 PHARMACY</span>
             <h3>Klagon, Lashibi, Tema</h3>
-            <address>NDC Junction · Cowpea Street · CB69<br>Near Sakumono Police Station</address>
+            <address>NDC Junction · Cowpea Street · CB69<br>Just around Karmina Barracks<br>Near Sakumono Police Station</address>
             <div class="address-actions">
               <a class="address-route" href="https://www.google.com/maps/dir/?api=1&amp;destination=5.62225%2C-0.06865" target="_blank" rel="noopener noreferrer">Directions to landmark <span aria-hidden="true">↗</span></a>
               <a class="address-search" href="https://www.google.com/maps/search/?api=1&amp;query=Dek450+Pharmacy+Limited%2C+Cowpea+Street%2C+Lashibi%2C+Tema%2C+Ghana" target="_blank" rel="noopener noreferrer">Find Dek450 <span aria-hidden="true">↗</span></a>
@@ -474,6 +481,6 @@ body.simple-home,.product-section{background:#f2f0e6}
     <a class="supply-cta" href="tel:+233502113175"><svg class="contact-icon" aria-hidden="true" focusable="false" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M7.15 2.9H5.3A2.3 2.3 0 0 0 3 5.5a18.3 18.3 0 0 0 15.5 15.5 2.3 2.3 0 0 0 2.6-2.3v-1.85a1.7 1.7 0 0 0-1.4-1.67l-3.04-.49a1.7 1.7 0 0 0-1.48.48l-1.08 1.08a13.48 13.48 0 0 1-6.35-6.35l1.08-1.08a1.7 1.7 0 0 0 .48-1.48L8.82 4.3a1.7 1.7 0 0 0-1.67-1.4Z"/></svg> Discuss a supply order</a>
   </section>
   <footer class="simple-footer"><a class="brand footer-brand" href="#top"><span class="brand-mark"><img class="dek-logo-mark" src="assets/brand/dek450-pharmacy-mark.svg" alt="" width="64" height="64"></span><span>Dek450<span class="brand-sub">PHARMACY LIMITED</span></span></a><nav aria-label="Footer navigation"><a href="#products">Products</a><a href="#contact">Directions</a><a href="#medical-supplies">Medical supplies</a></nav><small>© <span id="year"></span> Dek450 Pharmacy Limited</small></footer>
-  <script src="script.js?v=dek450-contact-6"></script>
+  <script src="script.js?v=dek450-pharmacist-1"></script>
 </body>
 </html>

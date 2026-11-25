@@ -606,3 +606,88 @@ html { scroll-padding-top: 88px; }
   height: 100%;
   object-fit: contain;
 }
+
+.pharmacist-portrait {
+  position: relative;
+  height: clamp(160px, 22vw, 225px);
+  overflow: hidden;
+  isolation: isolate;
+  background: #dfe8dc;
+}
+
+.pharmacist-portrait-images,
+.pharmacist-portrait-images img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.pharmacist-portrait-images img {
+  object-fit: cover;
+  object-position: center 12%;
+}
+
+.pharmacist-blink-pose,
+.pharmacist-reply-pose {
+  opacity: 0;
+  transition: opacity 210ms ease;
+}
+
+.pharmacist-portrait[data-state="composing"] .pharmacist-portrait-images {
+  animation: pharmacist-attentive 540ms ease-out both;
+}
+
+.pharmacist-portrait[data-state="thinking"] .pharmacist-portrait-images {
+  animation: pharmacist-attentive 420ms ease-out both;
+}
+
+.pharmacist-portrait[data-state="thinking"] .pharmacist-blink-pose {
+  animation: pharmacist-blink 360ms linear both;
+}
+
+.pharmacist-portrait[data-state="replying"] .pharmacist-portrait-images {
+  animation: pharmacist-nod 780ms ease-in-out both;
+}
+
+.pharmacist-portrait[data-state="replying"] .pharmacist-reply-pose {
+  opacity: 1;
+}
+
+.pharmacist-status {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  max-width: calc(100% - 24px);
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #193f34;
+  color: #fffaf0;
+  font: 650 12px/1.3 var(--sans);
+}
+
+@keyframes pharmacist-attentive {
+  from { transform: scale(1); }
+  to { transform: scale(1.022) translateY(1px); }
+}
+
+@keyframes pharmacist-blink {
+  0%, 31%, 79%, 100% { opacity: 0; }
+  46%, 64% { opacity: 1; }
+}
+
+@keyframes pharmacist-nod {
+  0%, 100% { transform: scale(1.01); }
+  48% { transform: scale(1.026) translateY(3px) rotate(-.45deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pharmacist-portrait[data-state] .pharmacist-portrait-images {
+    animation: none;
+  }
+
+  .pharmacist-blink-pose,
+  .pharmacist-reply-pose {
+    display: none;
+  }
+}

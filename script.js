@@ -88,6 +88,9 @@ const chatInput = document.querySelector('#chatInput');
 const chatMessages = document.querySelector('#chatMessages');
 const chatPrompts = document.querySelector('.chat-prompts');
 const chatReset = document.querySelector('#chatReset');
+const pharmacistPortrait = document.querySelector('#pharmacistPortrait');
+const pharmacistStatus = document.querySelector('#pharmacistStatus');
+const reduceChatMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const welcomeMessage = chatMessages.firstElementChild.cloneNode(true);
 const hours = [...document.querySelectorAll('.pharmacy-hours time')].map((time) => time.textContent);
 function contactAction(link, channel) {
@@ -161,8 +164,8 @@ function getDek450Answer(question) {
     }
     add(text, contactLink, mainPhone);
   }
-  if (/\b(where (are you|is dek450)|location|address|directions|find you|map|lashibi|sakumono|landmark|how (can|do) i get there)\b/.test(value)) {
-    add('Visit us in Klagon, Lashibi, Tema, near Sakumono Police Station at NDC Junction, Cowpea Street (CB69). The directions link uses Sakumono Police Station as the nearby landmark.', directions, pharmacyMapSearch);
+  if (/\b(where (are you|is dek450)|location|address|directions|find you|map|lashibi|sakumono|karmina|barracks|landmark|how (can|do) i get there)\b/.test(value)) {
+    add('Visit us at NDC Junction, Cowpea Street (CB69), Klagon, Lashibi, Tema, just around Karmina Barracks. The directions link uses nearby Sakumono Police Station as the map landmark.', directions, pharmacyMapSearch);
   }
   if (/\b(whatsapp|whats app)\b/.test(value)) {
     add('You can message Dek450 Pharmacy on WhatsApp.', whatsapp);
@@ -252,18 +255,58 @@ function addChatMessage(lines, kind, actions = []) {
   return row;
 }
 
+const pharmacistStates = {
+  ready: 'Ready for your question',
+  composing: 'Ready when you are',
+  thinking: 'Preparing your reply',
+  replying: 'Reply ready'
+};
+let pendingReply = null;
+let replyTimer;
+let portraitTimer;
+
+function setPharmacistState(state) {
+  clearTimeout(portraitTimer);
+  pharmacistPortrait.dataset.state = state;
+  pharmacistStatus.textContent = pharmacistStates[state];
+}
+
+function setPharmacistInputState() {
+  setPharmacistState(chatInput.value.trim() ? 'composing' : 'ready');
+}
+
+function showPharmacistReply() {
+  clearTimeout(replyTimer);
+  const { replies, actions } = pendingReply;
+  pendingReply = null;
+  const reply = addChatMessage(replies, 'assistant', actions);
+  chatMessages.scrollTop += reply.getBoundingClientRect().top - chatMessages.getBoundingClientRect().top - 14;
+  setPharmacistState('replying');
+  portraitTimer = setTimeout(setPharmacistInputState, 1400);
+}
+
+chatInput.addEventListener('input', () => {
+  if (!pendingReply) setPharmacistInputState();
+});
+
 function askDek450(question) {
   const cleanQuestion = question.trim();
   if (!cleanQuestion) {
     chatInput.focus();
     return;
   }
+  if (pendingReply) showPharmacistReply();
   addChatMessage([cleanQuestion], 'user');
-  const { replies, actions } = getDek450Answer(cleanQuestion);
-  const reply = addChatMessage(replies, 'assistant', actions);
-  chatMessages.scrollTop += reply.getBoundingClientRect().top - chatMessages.getBoundingClientRect().top - 14;
+  pendingReply = getDek450Answer(cleanQuestion);
+  chatMessages.scrollTop = chatMessages.scrollHeight;
   chatInput.value = '';
   chatReset.hidden = false;
+  if (reduceChatMotion.matches) {
+    showPharmacistReply();
+    return;
+  }
+  setPharmacistState('thinking');
+  replyTimer = setTimeout(showPharmacistReply, 440);
 }
 
 chatForm.addEventListener('submit', (event) => {
@@ -278,6 +321,9 @@ chatPrompts.addEventListener('click', (event) => {
 });
 
 chatReset.addEventListener('click', () => {
+  clearTimeout(replyTimer);
+  pendingReply = null;
+  setPharmacistState('ready');
   chatMessages.replaceChildren(welcomeMessage.cloneNode(true));
   chatMessages.scrollTop = 0;
   chatInput.value = '';
