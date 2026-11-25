@@ -537,3 +537,8 @@ html { scroll-padding-top: 88px; }
   text-decoration: underline;
   text-underline-offset: 3px;
 }
+
+.simple-home .contact-section { align-items: start; row-gap: 24px; }
+.simple-home .contact-heading { grid-column: 1 / -1; }
+.simple-home .contact-section .address-card { max-width: none; margin-top: 0; }
+.simple-home .contact-section .contact-card { width: 100%; }
