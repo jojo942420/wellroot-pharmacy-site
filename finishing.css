@@ -589,3 +589,20 @@ html { scroll-padding-top: 88px; }
   mix-blend-mode: normal;
   filter: none;
 }
+
+.simple-home :is(.brand-mark, .hero-logo, .about-logo) {
+  background: none;
+  box-shadow: none;
+  transform: none;
+}
+
+.simple-home .hero-logo::after {
+  content: none;
+}
+
+.simple-home .dek-logo-mark {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
