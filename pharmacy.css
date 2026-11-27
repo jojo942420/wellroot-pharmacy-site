@@ -10,7 +10,7 @@
   --line: #d8dfd6;
   --focus: #796000;
   --sans: "Source Sans 3", "Segoe UI", sans-serif;
-  --display: Georgia, "Times New Roman", serif;
+  --display: "Baskervville", Georgia, "Times New Roman", serif;
   --gutter: max(24px, min(6vw, 88px), calc((100% - 1280px) / 2));
   --space: clamp(52px, 7vw, 96px);
   font: 400 16px/1.55 var(--sans);
@@ -63,29 +63,47 @@ h3 { font-size: 21px; line-height: 1.16; }
 .menu-toggle { display: none; }
 
 .store-hero {
-  display: grid; grid-template-columns: minmax(0,.9fr) minmax(0,1.15fr);
-  align-items: center; gap: clamp(30px, 6vw, 86px);
-  padding: clamp(44px, 7vw, 94px) var(--gutter); background: var(--dark); color: #fffdf6;
+  display: grid; grid-template-columns: minmax(0, .86fr) minmax(0, 1fr);
+  align-items: center; gap: clamp(26px, 5.8vw, 84px);
+  padding: clamp(30px, 5vw, 76px) var(--gutter); background: #f7f6ef;
 }
 .eyebrow {
-  margin-bottom: 21px; color: #ddcfae; text-transform: uppercase;
-  letter-spacing: .13em; font-size: 13px; font-weight: 700;
+  margin-bottom: 18px; color: #42664f; text-transform: uppercase;
+  letter-spacing: .15em; font-size: 13px; font-weight: 750;
 }
-.store-hero h1 { font: 400 clamp(58px, 7.6vw, 110px)/.94 var(--display); letter-spacing: -.06em; }
-.hero-summary { max-width: 34ch; margin-block: 22px 28px; color: #e1ebe3; font-size: clamp(17px, 2vw, 21px); line-height: 1.45; }
+.store-hero h1 { font: 400 clamp(53px, 7.5vw, 110px)/.92 var(--display); letter-spacing: -.063em; }
+.store-hero h1 span { color: #509168; }
+.hero-summary { max-width: 35ch; margin-block: 22px 27px; color: #42564b; font-size: clamp(17px, 2vw, 21px); line-height: 1.42; }
 .hero-links { display: flex; gap: 10px; flex-wrap: wrap; }
 .button, .medicine-enquiries-call, .supply-cta {
   display: inline-flex; align-items: center; justify-content: center; gap: 9px; min-height: 47px;
   padding: 9px 17px; border: 1px solid transparent; border-radius: 5px; text-decoration: none; font-weight: 700;
 }
-.store-hero :focus-visible, .simple-footer :focus-visible { outline-color: #f2cf78; }
-.button-primary { background: #faf5e6; color: var(--dark); }
-.button-primary:hover { background: #fff; }
-.button-outline { color: #fffdf6; border-color: #a6b7a6; }
-.button-outline:hover { background: #2d5143; }
-.hero-photo { overflow: hidden; border-radius: 5px; background: #21483a; }
-.hero-photo img { width: 100%; height: auto; aspect-ratio: 32/23; object-fit: cover; object-position: 48% 54%; }
-.hero-photo figcaption { padding: 9px 14px; color: #e6eee7; font-size: 13px; }
+.simple-footer :focus-visible { outline-color: #f2cf78; }
+.button-primary { background: var(--dark); color: var(--white); }
+.button-primary:hover { background: var(--green); }
+.button-outline { color: var(--dark); border-color: #849888; }
+.button-outline:hover { background: #e7eee3; }
+.hero-feature {
+  display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1fr); align-items: center;
+  min-height: clamp(312px, 35vw, 485px); overflow: hidden; text-decoration: none;
+  padding: clamp(21px, 3.4vw, 48px); gap: clamp(0px, 1vw, 12px); border-radius: 12px;
+  color: #faf8ea; background:
+    radial-gradient(ellipse at 77% 41%, #688c69 0%, #315c45 42%, #183e31 75%);
+  border: 1px solid #234e3e;
+}
+.hero-feature:focus-visible { outline-color: var(--green); }
+.hero-product-copy { display: grid; justify-items: start; position: relative; z-index: 1; }
+.hero-product-copy > p { font-size: 12px; text-transform: uppercase; letter-spacing: .135em; font-weight: 750; }
+.hero-product-copy h2 { font-size: clamp(36px, 5.7vw, 86px); line-height: 1; margin-block: 6px 10px; color: #fffbee; }
+.hero-product-copy > span { line-height: 1.3; }
+.hero-product-link {
+  display: inline-flex; gap: 8px; align-items: center; min-height: 44px; white-space: nowrap;
+  margin-top: 12px; text-decoration: underline; text-underline-offset: 5px; font-weight: 700;
+}
+.hero-feature:hover .hero-product-link { text-decoration-thickness: 2px; }
+.hero-product-photo { display: grid; place-items: center; }
+.hero-product-photo img { width: min(100%, 227px); height: auto; filter: drop-shadow(11px 18px 15px #0c231bb0); }
 
 .medicine-enquiries, .supply-section {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 17px 34px;
@@ -131,16 +149,12 @@ h3 { font-size: 21px; line-height: 1.16; }
   border: 1px solid var(--line); border-radius: 6px; background: var(--white);
 }
 .product-tile:target { outline: 2px solid var(--green); outline-offset: 4px; }
-.product-image-wrap { aspect-ratio: 5/4; display: grid; place-items: center; background: #f0f0eb; overflow: hidden; }
-.product-image-wrap img { width: 100%; height: 100%; min-height: 0; object-fit: contain; }
-.product-image-wide img { object-fit: cover; }
+.product-image-wrap { aspect-ratio: 4/5; display: grid; place-items: center; background: #f0f0eb; overflow: hidden; }
+.product-image-wrap img { width: 100%; height: 100%; min-height: 0; object-fit: cover; object-position: center; }
 .product-tile-copy { display: flex; flex-direction: column; gap: 7px; flex: 1; padding: 15px; overflow-wrap: anywhere; }
 .product-tile-copy > span { color: var(--green); font-size: 11px; letter-spacing: .09em; font-weight: 750; }
 .product-tile-copy h3 { font-size: clamp(17px,1.7vw,23px); }
 .product-tile-copy p { color: var(--muted); font-size: 15px; line-height: 1.45; }
-.product-tile-text { background: var(--soft); }
-.product-tile-text .product-tile-copy { justify-content: center; min-height: 175px; }
-.product-tile-text h3 { font: 400 clamp(24px,2.8vw,33px)/1.12 var(--display); }
 .product-detail-link, .product-enquiry, .text-link, .assistant-call, .address-route {
   display: inline-flex; align-items: center; gap: 7px; width: fit-content; min-height: 44px;
   color: var(--green); font-weight: 700; text-underline-offset: 4px;
@@ -173,6 +187,21 @@ h3 { font-size: 21px; line-height: 1.16; }
   background: var(--white);
 }
 .chat-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 13px 16px; border-bottom: 1px solid var(--line); }
+.chat-heading { display: flex; align-items: center; gap: 11px; min-width: 0; }
+.pharmacist-portrait { flex: 0 0 52px; width: 52px; height: 60px; overflow: hidden; border-radius: 8px; background: var(--soft); }
+.pharmacist-portrait-images { position: relative; width: 100%; height: 100%; }
+.pharmacist-portrait-images img {
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 51% 16%;
+}
+.pharmacist-blink-pose, .pharmacist-reply-pose { opacity: 0; }
+@media (prefers-reduced-motion: no-preference) {
+  .pharmacist-portrait[data-state="ready"] .pharmacist-blink-pose,
+  .pharmacist-portrait[data-state="composing"] .pharmacist-blink-pose { animation: pharmacist-blink 6s infinite; }
+  .pharmacist-portrait[data-state="thinking"] .pharmacist-blink-pose { animation: pharmacist-blink 1.8s infinite; }
+  .pharmacist-portrait[data-state="replying"] .pharmacist-reply-pose { animation: pharmacist-reply .37s alternate 3; }
+}
+@keyframes pharmacist-blink { 0%, 69%, 74%, 100% { opacity: 0; } 71%, 72% { opacity: 1; } }
+@keyframes pharmacist-reply { from { opacity: 0; } to { opacity: 1; } }
 .chat-identity strong, .chat-identity small { display: block; }
 .chat-identity strong { font-size: 19px; }
 .chat-identity small, .chat-status, .chat-disclaimer { color: var(--muted); font-size: 14px; }
@@ -195,6 +224,7 @@ h3 { font-size: 21px; line-height: 1.16; }
   color: var(--white); background: var(--green); font-weight: 700;
 }
 .chat-form button:hover { background: var(--dark); }
+.chat-form button:disabled { opacity: .6; cursor: wait; }
 .chat-disclaimer { padding: 10px 16px 14px; line-height: 1.35; }
 
 .contact-section {
@@ -256,7 +286,9 @@ h3 { font-size: 21px; line-height: 1.16; }
   .store-hero h1 { font-size: clamp(51px,12.4vw,72px); }
   .eyebrow { margin-bottom: 15px; }
   .hero-summary { margin-block: 17px 20px; }
-  .hero-photo img { aspect-ratio: 16/10; }
+  .hero-feature { min-height: 0; }
+  .hero-product-photo img { width: min(100%, 170px); }
+  .hero-product-copy h2 { font-size: clamp(35px, 9vw, 61px); }
   .catalog-tools { padding: 12px; }
   .catalog-fields { flex-basis: 100%; grid-template-columns: 1fr; }
   .catalog-meta { min-height: 30px; }

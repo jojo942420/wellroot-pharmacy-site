@@ -131,6 +131,7 @@ const chatMessages = document.querySelector('#chatMessages');
 const chatPrompts = document.querySelector('.chat-prompts');
 const chatReset = document.querySelector('#chatReset');
 const chatStatus = document.querySelector('#chatStatus');
+const pharmacistPortrait = document.querySelector('#pharmacistPortrait');
 const reduceChatMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const welcomeMessage = chatMessages.firstElementChild.cloneNode(true);
 const hours = [...document.querySelectorAll('.pharmacy-hours time')].map((time) => time.textContent);
@@ -167,32 +168,58 @@ const chatProducts = catalogProducts.map(({ card, category, name, nameKey }) => 
     link: { label: 'See ' + name, href: '#' + card.id, product: card }
   };
 });
-let lastProduct = null;
+const productAliases = new Map([
+  ['coq10 300 mg', ['coq10', 'co q 10', 'coenzyme q10', 'coenzyme q 10']],
+  ['omega 3 dha 500', ['dha', 'omega 3', 'fish oil']],
+  ['vitamin d3 5 000 iu', ['vitamin d3', 'd3', '5000 iu']],
+  ['lineone d3 k2 gummies', ['d3 k2', 'd3 and k2', 'vitamin d3 with k2', 'lineone gummies']],
+  ['oral complete 60 capsules', ['oral complete', 'oral health capsules']],
+  ['intimate rose myo d chiro inositol', ['inositol', 'myo inositol', 'd chiro', 'intimate rose']],
+  ['sp 6 brightening toothpaste', ['sp 6', 'toothpaste']],
+  ['memory focus', ['alpha brain', 'memory focus']],
+  ['loris parfum reed diffusers', ['loris', 'reed diffusers', 'reed diffuser']]
+]);
+const categoryTopics = [
+  ['oral-care', /\b(oral care|dental care|toothpastes?|teeth products?)\b/],
+  ['home-fragrance', /\b(home fragrance|room fragrance|diffusers?|home scents?)\b/],
+  ['probiotics', /\b(probiotics?)\b/],
+  ['beauty', /\b(skincare|skin care|body care|beauty)\b/],
+  ['vitamins', /\b(vitamins?|multivitamins?)\b/],
+  ['wellness', /\b((womens|mens) wellness|fertility supplements)\b/],
+  ['supplements', /\b(supplements?)\b/]
+];
+const comparison = /\b(compare|comparison|versus|vs|differ(ence|ent)|which (one|has))\b/;
+let lastProducts = [];
+let lastBranches = [];
+let lastCategory = null;
 
 function hasPhrase(value, phrase) {
   return (' ' + value + ' ').includes(' ' + phrase + ' ');
 }
 
-function findProduct(value) {
-  const ignored = new Set('a an and care do for have i is it me of or please product show support tell the to what you your'.split(' '));
+function findProducts(value) {
+  const ignored = new Set('a an and care do for have i is it mg me of or please product show support tell the to what you your'.split(' '));
   const query = value.split(' ').filter((word) => !ignored.has(word));
   const scores = chatProducts.map((product) => {
     const nameWords = product.nameKey.split(' ').filter((word) => !ignored.has(word) && word.length > 2);
     const overlap = nameWords.filter((word) => query.includes(word)).length;
-    const fullMatch = hasPhrase(value, product.nameKey) || hasPhrase(value, product.alias);
-    const compactQuery = value.replaceAll(' ', '');
-    const coq10 = product.nameKey.startsWith('coq10 ') && compactQuery.includes('coq10');
-    const alphaBrain = product.nameKey === 'memory focus' && hasPhrase(value, 'alpha brain');
-    const dha = product.nameKey.includes('dha 500') && (hasPhrase(value, 'dha') || hasPhrase(value, 'fish oil'));
-    const vitamin = product.nameKey.startsWith('vitamin d3') && (hasPhrase(value, 'vitamin d3') || hasPhrase(value, 'd3'));
-    const score = fullMatch ? 20 + nameWords.length : coq10 || alphaBrain || dha || vitamin ? 16 : overlap >= 2 ? overlap : 0;
-    return { product, score };
-  }).sort((a, b) => b.score - a.score);
-  if (!scores[0]?.score || scores[0].score === scores[1]?.score) return null;
-  return scores[0].product;
+    const exact = [product.nameKey, ...(productAliases.get(product.nameKey) ?? [])]
+      .filter((alias) => hasPhrase(value, alias))
+      .sort((a, b) => b.length - a.length)[0];
+    const score = exact ? 30 + exact.length : overlap >= 2 ? overlap : 0;
+    return { product, score, exact };
+  }).filter(({ score }) => score > 0).sort((a, b) => b.score - a.score);
+  const direct = scores.filter(({ exact }) => exact).filter(({ exact }) =>
+    !scores.some((other) => other.exact && other.exact !== exact &&
+      hasPhrase(other.exact, exact) && !hasPhrase(value.replace(other.exact, ''), exact))
+  );
+  if (direct.length) return direct.sort((a, b) => value.indexOf(a.exact) - value.indexOf(b.exact))
+    .slice(0, 3).map(({ product }) => product);
+  if (scores[0] && scores[0].score !== scores[1]?.score) return [scores[0].product];
+  return [];
 }
 
-function getDek450Answer(question) {
+function getDek450Answer(question, model = {}) {
   const value = normalizeSearch(question);
   const replies = [];
   const actions = new Map();
@@ -200,28 +227,36 @@ function getDek450Answer(question) {
     replies.push(text);
     for (const link of links) if (link) actions.set(link.href, link);
   };
-  const clinical = /\b(dose|dosage|side effects?|interactions?|pregnan\w*|breastfeed\w*|symptoms?|diagnos\w*|treat\w*|cure\w*|safe for me|can i take|should i take|how to take|what can i take|what should i take|how many (should|can)|medicine for|medication for|recommend)\b/.test(value);
+  const clinical = model.intent === 'personal' || /\b(dose|dosage|side effects?|interactions?|pregnan\w*|breastfeed\w*|symptoms?|diagnos\w*|treat\w*|cure\w*|safe for me|can i take|should i take|how to take|what can i take|what should i take|how many (should|can)|medicine for|medication for|recommend)\b/.test(value);
   const prescription = /\b(prescriptions?|antibiotics?|cholesterol medicines?|statins?|rocephin\w*|ceftriaxone|augmentin|amoxicillin|zithromax|azithromycin|lipitor|atorvastatin|crestor|rosuvastatin)\b/.test(value);
-  const availability = /\b(stock|availab\w*|price|cost|buy|sell|purchase|do you (have|carry|sell)|out of stock|how much (is|does))\b/.test(value);
-  const timing = /\b(open\w*|clos(e|es|ing|ed)|hours|time can i visit|what time|today|sunday|saturday|weekends?|holidays?)\b/.test(value);
+  const availability = model.intent === 'availability' || /\b(stock|availab\w*|price|cost|buy|sell|purchase|do you (have|carry|sell)|out of stock|how much (is|does))\b/.test(value);
+  const timing = model.intent === 'hours' || /\b(open\w*|clos(e|es|ing|ed)|hours|time can i visit|what time|today|tomorrow|sunday|saturday|weekends?|holidays?)\b/.test(value);
 
   if (timing && !(/\bopen (the )?(map|catalog|label)\b/.test(value) && !/\b(hours|time|when)\b/.test(value))) {
+    const branch = branchLocations.find(({ match }) => match.test(value));
     let text = 'Our posted opening hours are ' + hours[0] + ' to ' + hours[1] + ', Ghana time.';
-    if (/\b(now|today|sunday|saturday|weekends?|holidays?|tomorrow)\b/.test(value)) {
+    if (branch || /\b(now|today|sunday|saturday|weekends?|holidays?|tomorrow)\b/.test(value)) {
       text += ' Call before travelling to confirm the schedule for your visit.';
     }
     add(text, contactLink, mainPhone);
   }
-  const matchingBranches = branchLocations.filter((branch) => branch.match.test(value));
-  if (matchingBranches.length || /\b(where (are you|is dek450)|locations?|addresses?|branches?|directions|find you|map|landmark|how (can|do) i get there)\b/.test(value)) {
-    const locations = matchingBranches.length ? matchingBranches : branchLocations;
+  const namedBranches = branchLocations.filter((branch) => branch.match.test(value));
+  const requestsDirections = model.intent === 'directions' || /\b(where (are you|is dek450|is your|is the branch)|locations?|addresses?|branches?|directions|find you|map|landmark|how (can|do) i get there|how to get there|how far)\b/.test(value);
+  if (namedBranches.length) lastBranches = namedBranches;
+  if (requestsDirections || (namedBranches.length && !timing && !availability && !clinical && !prescription)) {
+    const selectedBranches = model.branches?.map((number) => branchLocations[number]).filter(Boolean) ?? [];
+    const refersBack = /\b(there|that branch|that one|its)\b/.test(value);
+    const locations = namedBranches.length ? namedBranches
+      : selectedBranches.length ? selectedBranches
+      : refersBack && lastBranches.length ? lastBranches : branchLocations;
+    lastBranches = locations;
     for (const branch of locations) add(branch.address, branch.map);
     add('Map markers show the nearby street or landmark. Call the pharmacy for help finding the storefront.', mainPhone);
   }
   if (/\b(whatsapp|whats app)\b/.test(value)) {
     add('You can message Dek450 Pharmacy on WhatsApp.', whatsapp);
   }
-  if (/\b(phone|telephone|contact|number|numbers|call|reach you|email)\b/.test(value) &&
+  if ((model.intent === 'contact' || /\b(phone|telephone|contact|number|numbers|call|reach you|email)\b/.test(value)) &&
       !/\b(whatsapp|whats app)\b/.test(value)) {
     add('Call either pharmacy number or message us on WhatsApp.', ...callActions, whatsapp);
   }
@@ -238,17 +273,48 @@ function getDek450Answer(question) {
     add('Please call the pharmacy to confirm delivery, payment, insurance or returns arrangements for your request.', mainPhone);
   }
 
-  const product = findProduct(value) || (/\b(it|its|that one|same one)\b/.test(value) ? lastProduct : null);
-  if (product && !clinical && !prescription) {
-    lastProduct = product;
-    add(product.name + '. ' + product.description, product.link, product.label);
+  const category = categoryTopics.find(([, pattern]) => pattern.test(value))?.[0];
+  let products = findProducts(value);
+  if (products.length && lastProducts.length === 1 && /^(with|versus|vs|and)\b/.test(value)) {
+    products = [...new Set([...lastProducts, ...products])];
+  }
+  if (!products.length && model.products?.length) {
+    products = model.products.map((number) => chatProducts[number]).filter(Boolean).slice(0, 3);
+  }
+  if (!products.length && /\b(it|its|them|they|both|each|those|that one|same one|the first|the second)\b/.test(value)) {
+    products = lastProducts;
+    if (/\b(the first|the second)\b/.test(value)) {
+      products = products.slice(value.includes('the first') ? 0 : 1, value.includes('the first') ? 1 : 2);
+    }
+  }
+  if (products.length && !clinical && !prescription) {
+    if (products.length > 1 || !products.every((product) => lastProducts.includes(product))) lastProducts = products;
+    if (comparison.test(value) && products.length < 2) {
+      add('What would you like to compare ' + products[0].name + ' with?', products[0].link, catalogLink);
+    } else if (!availability || /\b(compare|details?|about|difference|label|ingredients?)\b/.test(value)) {
+      if (products.length > 1) add('Here’s what the catalog lists for each product.');
+      for (const product of products) add(product.name + '. ' + product.description, product.link, product.label);
+    }
   }
   if (availability && !prescription) {
-    add('The catalog shows product information. Call our team to confirm current stock and price' + (product ? ' for ' + product.name : '') + '.', mainPhone, whatsapp);
+    const names = products.length && !clinical ? ' for ' + products.map(({ name }) => name).join(' and ') : '';
+    add('Call or message the pharmacy to confirm current stock and price' + names + '.', mainPhone, whatsapp);
   }
-  if (!product && !clinical && !prescription && !availability && /\b(products?|catalog|browse|supplements?|vitamins?|probiotics?|skincare|body care|gummies)\b/.test(value)) {
-    add('Browse the catalog and search by product name or category. It includes skincare, vitamins, probiotics and supplements.', catalogLink);
+  if (!products.length && !clinical && !prescription && !availability) {
+    if (category && !replies.length) {
+      lastCategory = category;
+      const options = chatProducts.filter((product) => product.category === category);
+      const items = options.slice(0, 4);
+      add('The catalog lists ' + options.length + ' products in this category, including ' + items.map(({ name }) => name).join(', ') + '.', ...items.map(({ link }) => link), catalogLink);
+    } else if (lastCategory && /\b(more|others|else|any similar)\b/.test(value) && !replies.length) {
+      const items = chatProducts.filter((product) => product.category === lastCategory).slice(4, 8);
+      if (items.length) add('Other products in that category include ' + items.map(({ name }) => name).join(', ') + '.', ...items.map(({ link }) => link), catalogLink);
+      else add('For more products in that category, ask the pharmacy team.', catalogLink, mainPhone);
+    } else if (!replies.length && (model.intent === 'catalog' || /\b(products?|catalog|browse|gummies)\b/.test(value))) {
+      add('Browse the catalog or ask for a specific product or category, such as oral care, skincare or probiotics.', catalogLink);
+    }
   }
+  const matched = replies.length > 0 || /^(thanks|thank you|ok|okay|cheers)( very much)?$/.test(value);
   if (!replies.length) {
     if (/^(thanks|thank you|ok|okay|cheers)( very much)?$/.test(value)) {
       add('You’re welcome. Ask another question whenever you’re ready.');
@@ -256,7 +322,61 @@ function getDek450Answer(question) {
       add('Try asking about opening hours, directions, prescriptions, or a product by name. For anything else, call our pharmacy team.', catalogLink, mainPhone);
     }
   }
-  return { replies, actions: [...actions.values()] };
+  return { replies, actions: [...actions.values()], matched };
+}
+
+const modelIntents = ['unknown', 'catalog', 'directions', 'hours', 'contact', 'availability', 'personal'];
+
+async function understandQuestion(question, signal) {
+  const model = window.LanguageModel;
+  if (!model) return null;
+
+  let session;
+  try {
+    const options = {
+      expectedInputs: [{ type: 'text', languages: ['en'] }],
+      expectedOutputs: [{ type: 'text', languages: ['en'] }]
+    };
+    if (await model.availability(options) !== 'available' || signal.aborted) return null;
+    session = await model.create({
+      ...options,
+      signal,
+      initialPrompts: [{
+        role: 'system',
+        content: 'Classify a pharmacy website question. Select personal for health advice, symptoms, treatment, interactions or safety. Select other intents only for store information. Select product IDs only when the visitor refers to those products. Use unknown when unclear. JSON only.'
+      }]
+    });
+    const input = JSON.stringify({
+      matchedBranches: lastBranches.map((branch) => branchLocations.indexOf(branch)),
+      previousProducts: lastProducts.map((item) => chatProducts.indexOf(item)),
+      branchNames: ['Klagon, NDC Junction, Cowpea Street', 'Tamale, Karmina Barracks'],
+      catalog: chatProducts.map(({ name }, id) => [id, name]),
+      question
+    });
+    const result = JSON.parse(await session.prompt(input, {
+      signal,
+      responseConstraint: {
+        type: 'object',
+        properties: {
+          intent: { type: 'string', enum: modelIntents },
+          products: { type: 'array', items: { type: 'integer' }, maxItems: 3 },
+          branches: { type: 'array', items: { type: 'integer' }, maxItems: 2 }
+        },
+        required: ['intent', 'products', 'branches'],
+        additionalProperties: false
+      }
+    }));
+    if (!result || !modelIntents.includes(result.intent)) return null;
+    return {
+      intent: result.intent,
+      products: Array.isArray(result.products) ? [...new Set(result.products.filter(Number.isInteger))].slice(0, 3) : [],
+      branches: Array.isArray(result.branches) ? [...new Set(result.branches.filter(Number.isInteger))].slice(0, 2) : []
+    };
+  } catch {
+    return null;
+  } finally {
+    session?.destroy();
+  }
 }
 
 function addChatMessage(lines, kind, actions = []) {
@@ -306,23 +426,21 @@ const pharmacistStates = {
   thinking: 'Preparing your reply',
   replying: 'Reply ready'
 };
-let pendingReply = null;
-let replyTimer;
+let activeChatRequest = null;
+const sendChat = chatForm.querySelector('button[type=submit]');
 let portraitTimer;
 
 function setPharmacistState(state) {
   clearTimeout(portraitTimer);
   chatStatus.textContent = pharmacistStates[state];
+  pharmacistPortrait.dataset.state = state;
 }
 
 function setPharmacistInputState() {
   setPharmacistState(chatInput.value.trim() ? 'composing' : 'ready');
 }
 
-function showPharmacistReply() {
-  clearTimeout(replyTimer);
-  const { replies, actions } = pendingReply;
-  pendingReply = null;
+function showPharmacistReply({ replies, actions }) {
   const reply = addChatMessage(replies, 'assistant', actions);
   chatMessages.scrollTop += reply.getBoundingClientRect().top - chatMessages.getBoundingClientRect().top - 14;
   setPharmacistState('replying');
@@ -330,27 +448,39 @@ function showPharmacistReply() {
 }
 
 chatInput.addEventListener('input', () => {
-  if (!pendingReply) setPharmacistInputState();
+  if (!activeChatRequest) setPharmacistInputState();
 });
 
-function askDek450(question) {
+async function askDek450(question) {
   const cleanQuestion = question.trim();
-  if (!cleanQuestion) {
-    chatInput.focus();
-    return;
-  }
-  if (pendingReply) showPharmacistReply();
+  if (!cleanQuestion || activeChatRequest) return;
+
+  const request = new AbortController();
+  activeChatRequest = request;
+  sendChat.disabled = true;
   addChatMessage([cleanQuestion], 'user');
-  pendingReply = getDek450Answer(cleanQuestion);
   chatMessages.scrollTop = chatMessages.scrollHeight;
   chatInput.value = '';
   chatReset.hidden = false;
-  if (reduceChatMotion.matches) {
-    showPharmacistReply();
-    return;
-  }
+
+  let answer = getDek450Answer(cleanQuestion);
   setPharmacistState('thinking');
-  replyTimer = setTimeout(showPharmacistReply, 440);
+  if (!answer.matched) {
+    const modelRequest = new AbortController();
+    request.signal.addEventListener('abort', () => modelRequest.abort(), { once: true });
+    const timeout = setTimeout(() => modelRequest.abort(), 2600);
+    const interrupted = new Promise((resolve) => modelRequest.signal.addEventListener('abort', () => resolve(null), { once: true }));
+    const result = await Promise.race([understandQuestion(cleanQuestion, modelRequest.signal), interrupted]);
+    clearTimeout(timeout);
+    if (request.signal.aborted) return;
+    if (result) answer = getDek450Answer(cleanQuestion, result);
+  } else if (!reduceChatMotion.matches) {
+    await new Promise((resolve) => setTimeout(resolve, 350));
+    if (request.signal.aborted) return;
+  }
+  activeChatRequest = null;
+  sendChat.disabled = false;
+  showPharmacistReply(answer);
 }
 
 chatForm.addEventListener('submit', (event) => {
@@ -365,13 +495,16 @@ chatPrompts.addEventListener('click', (event) => {
 });
 
 chatReset.addEventListener('click', () => {
-  clearTimeout(replyTimer);
-  pendingReply = null;
+  activeChatRequest?.abort();
+  activeChatRequest = null;
+  sendChat.disabled = false;
   setPharmacistState('ready');
   chatMessages.replaceChildren(welcomeMessage.cloneNode(true));
   chatMessages.scrollTop = 0;
   chatInput.value = '';
-  lastProduct = null;
+  lastProducts = [];
+  lastBranches = [];
+  lastCategory = null;
   chatReset.hidden = true;
   chatInput.focus();
 });
