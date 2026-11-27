@@ -34,7 +34,7 @@ document.addEventListener('click', (event) => {
   if (toggle.getAttribute('aria-expanded') === 'true' && !event.target.closest('.site-header')) setMenu(false);
 });
 
-window.matchMedia('(max-width: 650px)').addEventListener('change', () => setMenu(false));
+window.matchMedia('(max-width: 740px)').addEventListener('change', () => setMenu(false));
 
 const catalog = document.querySelector('#catalog-tools');
 const catalogSearch = document.querySelector('#catalog-search');
@@ -154,7 +154,7 @@ const branchLocations = [
   }
 ];
 const catalogLink = { label: 'Browse products', href: '#products' };
-const supplyLink = { label: 'Medical supplies enquiries', href: '#medical-supplies' };
+const supplyLink = { label: 'Visit Medical Supplies', href: document.querySelector('[data-supply-site]').href };
 const contactLink = { label: 'Hours and contact', href: '#contact' };
 
 const chatProducts = catalogProducts.map(({ card, category, name, nameKey }) => {
