@@ -58,7 +58,7 @@ const catalogProducts = [...document.querySelectorAll('#product-grid .product-ti
   return {
     card, name, nameKey,
     category: card.dataset.category,
-    text: normalizeSearch([...card.querySelector('.product-tile-copy').children].map((field) => field.textContent).join(' ') + ' ' + card.querySelector('img').alt)
+    text: normalizeSearch([...card.querySelector('.product-tile-copy').children].map((field) => field.textContent).join(' ') + ' ' + (card.querySelector('img')?.alt ?? ''))
   };
 });
 
@@ -130,8 +130,7 @@ const chatInput = document.querySelector('#chatInput');
 const chatMessages = document.querySelector('#chatMessages');
 const chatPrompts = document.querySelector('.chat-prompts');
 const chatReset = document.querySelector('#chatReset');
-const pharmacistPortrait = document.querySelector('#pharmacistPortrait');
-const pharmacistStatus = document.querySelector('#pharmacistStatus');
+const chatStatus = document.querySelector('#chatStatus');
 const reduceChatMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 const welcomeMessage = chatMessages.firstElementChild.cloneNode(true);
 const hours = [...document.querySelectorAll('.pharmacy-hours time')].map((time) => time.textContent);
@@ -159,7 +158,7 @@ const contactLink = { label: 'Hours and contact', href: '#contact' };
 
 const chatProducts = catalogProducts.map(({ card, category, name, nameKey }) => {
   const description = card.querySelector('.product-tile-copy p').textContent;
-  const alt = card.querySelector('img').alt;
+  const alt = card.querySelector('img')?.alt ?? '';
   const label = card.querySelector('.product-detail-link');
   return {
     name, description, category, nameKey,
@@ -313,8 +312,7 @@ let portraitTimer;
 
 function setPharmacistState(state) {
   clearTimeout(portraitTimer);
-  pharmacistPortrait.dataset.state = state;
-  pharmacistStatus.textContent = pharmacistStates[state];
+  chatStatus.textContent = pharmacistStates[state];
 }
 
 function setPharmacistInputState() {
